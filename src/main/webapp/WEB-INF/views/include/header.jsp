@@ -48,7 +48,7 @@
   <nav id="navbar" class="navbar main-nav">
     <div class="container">
       <div class="navbar-brand">
-        <a class="navbar-item" href="index.html">
+        <a class="navbar-item" href="${path1}/">
           <img src="${path1}/resources/images/haebeop.png" alt="logo">
         </a>
         <button role="button" class="navbar-burger burger" data-hidden="true" data-target="navigation">
