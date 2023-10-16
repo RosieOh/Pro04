@@ -32,4 +32,11 @@ public class ApplicationConfig {
 
     @Bean
     public BoardService boardService() { return new BoardServiceImpl();}
+
+    // Free
+    @Bean
+    public FreeRepository freeRepository() { return new FreeRepositoryImpl();}
+
+    @Bean
+    public FreeService freeService() { return new FreeServiceImpl();}
 }

@@ -81,12 +81,12 @@
 
     .member input[type=button],
     .member input[type=submit]{
-        background-color: #2db400;
+        background-color: #00A2FF;
         color:#fff
     }
 
     .member input:focus, .member select:focus{
-        border: 1px solid #2db400;
+        border: 1px solid #00A2FF;
     }
 
     .field.birth div{ /*field 이면서 birth*/
@@ -114,7 +114,7 @@
 
     .member-footer div a:hover{
         text-decoration: underline;
-        color:#2db400
+        color:#00A2FF
     }
 
     .member-footer div a:after{

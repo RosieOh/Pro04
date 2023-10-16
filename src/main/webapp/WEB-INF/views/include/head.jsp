@@ -11,11 +11,13 @@
 
 <!-- bulma.min css -->
 <link rel="stylesheet" href="${path0}/resources/plugins/bulma/bulma.min.css">
+
 <!-- Icon Font Css -->
 <link rel="stylesheet" href="${path0}/resources/plugins/themify/css/themify-icons.css">
 <link rel="stylesheet" href="${path0}/resources/plugins/icofont/icofont.css">
 <link rel="stylesheet" href="${path0}/resources/plugins/magnific-popup/dist/magnific-popup.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+
 <!-- Owl Carousel CSS -->
 <link rel="stylesheet" href="${path0}/resources/plugins/slick-carousel/slick/slick.css">
 <link rel="stylesheet" href="${path0}/resources/plugins/slick-carousel/slick/slick-theme.css">
@@ -25,26 +27,22 @@
 <link rel="stylesheet" href="${path0}/resources/css/style.css">
 <link rel="stylesheet" href="${path0}/resources/css/ft.css" />
 
-
-<!-- Essential Scripts =====================================-->
 <!-- Main jQuery -->
 <script src="${path0}/resources/js/contact.js"></script>
+
 <!--  Magnific Popup-->
 <script src="${path0}/resources/plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+
 <!-- Slick Slider -->
 <script src="${path0}/resources/plugins/slick-carousel/slick/slick.min.js"></script>
 <!-- Counterup -->
 <script src="${path0}/resources/plugins/counterup/jquery.waypoints.min.js"></script>
 <script src="${path0}/resources/plugins/counterup/jquery.counterup.min.js"></script>
-
 <script src="${path0}/resources/plugins/modal-video/jquery-modal-video.min.js"></script>
-
 <script type="text/javascript" src="${path0 }/resources/ckeditor/ckeditor.js"></script>
 
 <!-- Google Map -->
 <script src="${path0}/resources/plugins/google-map/map.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>
-
 <script defer src="${path0}/resources/js/script.js"></script>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

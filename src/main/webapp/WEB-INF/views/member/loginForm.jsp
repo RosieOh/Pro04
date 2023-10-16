@@ -58,7 +58,7 @@
                                 Remember me
                             </label>
                         </div>
-                        <button class="button is-block is-info is-large is-fullwidth">Login</button>
+                        <button class="button is-block is-info is-large is-fullwidth" type="submit">Login</button>
                         <br/>
                     </form>
                     <script>
@@ -83,6 +83,7 @@
             </div>
         </div>
     </div>
+</section>
 
 <!-- Footer Start -->
 <jsp:include page="../include/footer.jsp" />

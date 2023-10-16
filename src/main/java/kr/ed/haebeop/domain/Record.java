@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Record {
     private int rno;
-    private int bno;
+    private int fno;
     private String id;
     private int flag;
 }

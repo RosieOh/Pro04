@@ -14,10 +14,6 @@
     <!-- 헤드 부분 인클루드 -->
     <jsp:include page="../include/head.jsp"></jsp:include>
 </head>
-<body>
-<!-- 헤드 부분 인클루드 -->
-<jsp:include page="../include/head.jsp"></jsp:include>
-<!-- 추가한 CSS 스타일 -->
 <style>
     /* 입력 필드와 버튼 스타일링 */
     .input {
@@ -56,7 +52,7 @@
 <body>
 <div class="container is-fullhd">
     <!-- 헤더 부분 인클루드 -->
-    <jsp:include page="../include/head.jsp"></jsp:include>
+    <jsp:include page="../include/header.jsp"></jsp:include>
     <figure class="visual" id="vs1">
         <!-- 이미지 슬라이더 부분은 그대로 두세요. -->
     </figure>
@@ -140,9 +136,8 @@
             </div>
         </div>
     </div>
-
-    <!-- 푸터 부분 인클루드 -->
-    <jsp:include page="../include/footer.jsp"></jsp:include>
 </div>
+<!-- 푸터 부분 인클루드 -->
+<jsp:include page="../include/footer.jsp"></jsp:include>
 </body>
 </html>

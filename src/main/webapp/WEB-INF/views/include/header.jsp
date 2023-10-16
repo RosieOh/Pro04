@@ -15,15 +15,27 @@
         </div>
         <div class="column is-6-desktop is-8-tablet">
           <div class="header-top-right has-text-right-tablet has-text-centered-mobile">
-            <%--<a href="https://www.facebook.com/themefisher" target="_blank"><i class="icofont-facebook"></i></a>
-            <a href="https://github.com/themefisher/" target="_blank"><i class="icofont-github"></i></a>
-            <a href="#" target="_blank"><i class="icofont-linkedin"></i></a>--%>
-            <a href="#">
-              <i class="icofont-login has-text-white"> 로그인</i>
-            </a>
-            <a href="#">
-              <i class="icofont-user has-text-white"> 회원가입</i>
-            </a>
+            <c:if test="${!empty sid}">
+              <a href="${path1}/member/mypage.do">
+                <i class="icofont-user has-text-white"> My Page</i>
+              </a>
+              <a href="${path1}/member/logout.do">
+                <i class="icofont-login has-text-white"> LogOut</i>
+              </a>
+            </c:if>
+            <c:if test="${empty sid}">
+              <a href="${path1}/member/term.do">
+                <i class="icofont-user has-text-white"> 회원가입</i>
+              </a>
+              <a href="${path1}/member/login.do">
+                <i class="icofont-login has-text-white"> 로그인</i>
+              </a>
+            </c:if>
+            <c:if test="${sid.equals('admin')}">
+              <a href="${path1}/admin/adminList.do">
+                <i class="icofont-user has-text-white">관리자페이지</i>
+              </a>
+            </c:if>
             <a href="#">
               <i class="icofont-google-map has-text-white"> 오시는길</i>
             </a>

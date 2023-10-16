@@ -17,7 +17,6 @@ public interface MemberService {
 
     //Ajax로 로그인 처리 -> 컨트롤러
     public Member loginAjax(Member member) throws Exception;
-
     public String findByEmail(String email) throws Exception;
     public String findPassword(String id, String email) throws Exception;
 }

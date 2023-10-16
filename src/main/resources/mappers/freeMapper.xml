@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="free">
+    <!-- 자유게시판 목록 -->
+    <select id="freeList" resultType="kr.ed.haebeop.domain.Free">
+        <![CDATA[
+        select * from free
+        ]]>
+        <where>
+            <if test="searchType != null">
+                <choose>
+                    <when test="searchType == 'title'.toString()">
+                        title LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                    <when test="searchType == 'content'.toString()">
+                        content LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                </choose>
+            </if>
+        </where>
+        <![CDATA[
+        order by regdate desc LIMIT #{postStart}, #{postCount}
+        ]]>
+    </select>
+    <!-- 글 상세보기 -->
+    <select id="freeDetail" resultType="kr.ed.haebeop.domain.Free">
+        select * from free where fno=#{fno}
+    </select>
+    <!-- 글 수 카운트 -->
+    <select id="totalCount" resultType="integer">
+        <![CDATA[
+        select count(*) from free
+        ]]>
+        <where>
+            <if test="searchType != null">
+                <choose>
+                    <when test="searchType == 'title'.toString()">
+                        title LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                    <when test="searchType == 'content'.toString()">
+                        content LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+    <insert id="freeInsert">
+        insert into free values (default, #{title}, #{content}, default, 0, #{id}, 0)
+    </insert>
+    <delete id="freeDelete">
+        delete from free where fno=#{fno}
+    </delete>
+    <update id="freeEdit">
+        update free set title=#{title}, content=#{content} where fno=#{fno}
+    </update>
+    <update id="hitsUp">
+        update free set visited=visited+1 where fno=#{fno}
+    </update>
+    <update id="hitsDown">
+        update free set visited=visited-1 where fno=#{fno}
+    </update>
+    <!-- 상위 추천 5개 -->
+    <select id="freeBestRecList" resultType="kr.ed.haebeop.domain.Free">
+        select * from free order by rec desc limit 5
+    </select>
+    <!-- 상위 댓글 5개 -->
+    <select id="freeBestCmtList" resultType="kr.ed.haebeop.domain.Free">
+        SELECT f.fno, f.title, COUNT(c.fno) AS comment_count
+        FROM free f
+                 JOIN free_comment c ON f.fno = c.fno
+        GROUP BY f.fno, f.title, f.content
+        ORDER BY comment_count DESC
+            LIMIT 5;
+    </select>
+
+    <sql id="criteria">
+        <where>
+            <trim prefixOverrides="OR">
+                <foreach item="type" collection="typeArr">
+                    <trim prefixOverrides="OR">
+                        <choose>
+                            <when test="type == 'T'.toString()">
+                                title LIKE '%' || #{keyword} || '%'
+                            </when>
+                            <when test="type == 'C'.toString()">
+                                content LIKE '%' || #{keyword} || '%'
+                            </when>
+                        </choose>
+                    </trim>
+                </foreach>
+            </trim>
+        </where>
+    </sql>
+    <select id="getListWithPaging" resultType="kr.ed.haebeop.domain.Free">
+        <![CDATA[
+        select * from free
+        ]]>
+        <include refid="criteria" />
+        <![CDATA[
+        ORDER BY resdate DESC LIMIT ((#{pageNum} - 1) * #{amount}), #{amount}
+        ]]>
+    </select>
+
+    <!-- 댓글 리스트-->
+    <select id="freeCommentList" resultType="kr.ed.haebeop.domain.FreeComment">
+        select * from freecommentlist where fno=#{fno}
+    </select>
+    <!--    댓글 삽입-->
+    <insert id="commentInsert">
+        INSERT INTO free_comment(fno, author, content) VALUES(#{fno}, #{author}, #{content});
+    </insert>
+    <!--    댓글 삭제-->
+    <delete id="commentDelete">
+        delete from free_comment where cno=#{cno}
+    </delete>
+
+    <!--    리스트에 댓글 수 불러오기-->
+    <select id="commentCount" resultType="kr.ed.haebeop.domain.Free">
+        SELECT f.fno, COUNT(fc.fno) AS count
+        FROM free f
+            LEFT JOIN free_comment fc ON f.fno = fc.fno
+        GROUP BY f.fno;
+    </select>
+
+
+    <select id="findReco" resultType="kr.ed.haebeop.domain.Record">
+        select * from record where fno=#{fno} and id=#{id}
+    </select>
+
+    <select id="memberFindRecord" resultType="kr.ed.haebeop.domain.Record">
+        select * from record where fno=#{fno} and id=#{id}
+    </select>
+
+    <insert id="insertRecord">
+        insert into record(fno, id, flag) values(#{fno}, #{id}, 1)
+    </insert>
+
+    <delete id="deleteRecord">
+        delete from record where fno=#{fno} and id=#{id}
+    </delete>
+
+    <!-- 게시글 추천 -->
+    <update id="increaseRecord">
+        update free set rec=rec+1 where fno=#{fno}
+    </update>
+    <!-- 게시글 추천 취소 -->
+    <update id="decreaseRecord">
+        update free set rec=rec-1 where fno=#{fno}
+    </update>
+</mapper>
