@@ -19,6 +19,10 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 <style>
+    * {
+        margin: 0 auto;
+        padding: 0;
+    }
     .content ul {
         list-style-type: none;
     }

@@ -201,7 +201,7 @@
                         //location.reload();
                     } else if (res == -1) {
                         $("#recimg").attr("src", "${path1}/resources/img/before_rec.png");
-                        //alert("이미 추천한 게시물입니다.");
+                        alert("이미 추천한 게시물입니다.");
                     }
                     $("#thumbCnt").html(response.record);
                 }, error: function () {
@@ -212,8 +212,12 @@
         });
     });
 </script>
-<!-- Footer Start -->
-<jsp:include page="../include/footer.jsp" />
-<!-- Footer Close -->
+<br>
+<br>
+<footer>
+    <!-- Footer Start -->
+    <jsp:include page="../include/footer.jsp" />
+    <!-- Footer Close -->
+</footer>
 </body>
 </html>
