@@ -78,8 +78,8 @@ public class FreeController {
         }
         return "/free/freeList";
     }
-
-    @GetMapping("detail.do")    //free/detail.do?bno=1
+    // board와 형태 유사 - domain 조심
+    @GetMapping("detail.do")
     public String getfreeDetail(HttpServletRequest request, Model model) throws Exception {
         int fno = Integer.parseInt(request.getParameter("fno"));
         String id = (String) session.getAttribute("sid");
@@ -100,7 +100,7 @@ public class FreeController {
 
     @PostMapping("detail.do")
     public String commentInsert(HttpServletRequest request, Model model) throws Exception {
-        int fno = Integer.parseInt(request.getParameter("bno"));
+        int fno = Integer.parseInt(request.getParameter("fno"));
         FreeComment dto = new FreeComment();
         dto.setContent(request.getParameter("content"));
         dto.setFno(fno);
@@ -134,14 +134,14 @@ public class FreeController {
 
     @GetMapping("delete.do")
     public String freeDelete(HttpServletRequest request, Model model) throws Exception {
-        int bno = Integer.parseInt(request.getParameter("bno"));
-        freeService.freeDelete(bno);
+        int fno = Integer.parseInt(request.getParameter("fno"));
+        freeService.freeDelete(fno);
         return "redirect:list.do";
     }
 
     @GetMapping("edit.do")
     public String editForm(HttpServletRequest request, Model model) throws Exception {
-        int fno = Integer.parseInt(request.getParameter("bno"));
+        int fno = Integer.parseInt(request.getParameter("fno"));
         Free dto = freeService.freeDetail(fno);
         model.addAttribute("dto", dto);
         return "/free/freeEdit";
@@ -157,6 +157,8 @@ public class FreeController {
         freeService.freeEdit(dto);
         return "redirect:list.do";
     }
+
+// ========================================================================================
 
     //ckeditor를 이용한 이미지 업로드
     @RequestMapping(value = "imageUpload.do", method = RequestMethod.POST)

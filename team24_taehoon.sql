@@ -16,7 +16,7 @@ SELECT * from test;
 COMMIT;
 
 SELECT * FROM emp;
-
+haebeop
 DESC test;
 
 DESC emp;
@@ -114,8 +114,14 @@ DESC fileboard;
 SELECT * FROM fileobj;
 SELECT * FROM fileboard;
 
-
-
+CREATE TABLE board (
+                       bno INT AUTO_INCREMENT PRIMARY KEY,
+                       title VARCHAR(100) NOT NULL,
+                       content VARCHAR(1000) NOT NULL,
+                       nickname VARCHAR(20),
+                       regdate DATETIME DEFAULT CURRENT_TIMESTAMP(),
+                       visited INT DEFAULT 0
+);
 
 
 

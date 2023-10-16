@@ -47,7 +47,7 @@
                     <div class="field">
                         <label class="label" for="title">제목</label>
                         <div class="control">
-                            <input type="hidden" name="bno" id="bno" value="${dto.bno }" >
+                            <input type="hidden" name="fno" id="fno" value="${dto.fno }" >
                             <input type="text" name="title" id="title" class="input" value="${dto.title }" maxlength="98" required>
                         </div>
                     </div>

@@ -75,18 +75,17 @@
           <li class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">커뮤니티</a>
             <div class="navbar-dropdown">
-              <a class="navbar-item" href="#">공지사항</a>
+              <a class="navbar-item" href="${path1}/board/list.do">공지사항</a>
               <a class="navbar-item" href="#">자주 묻는 질문</a>
               <a class="navbar-item" href="#">후기</a>
+              <a class="navbar-item" href="#">교육 뉴스</a>
+              <a class="navbar-item" href="contact.html">Contact</a>
             </div>
           </li>
 
           <li class="navbar-item">
-            <a class="navbar-link" href="#">자료실</a>
+            <a class="navbar-link" href="${path1}/file/filelist1.do">자료실</a>
           </li>
-          <%--<li class="navbar-item">
-              <a class="navbar-link" href="contact.html">Contact</a>
-          </li>--%>
         </ul>
       </div>
     </div>

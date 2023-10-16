@@ -199,24 +199,6 @@
                     </c:forEach>
                 </ul>
             </nav>
-
-            <%--<form action="${path1 }/free/list.do" method="get" class="field has-addons has-addons-centered">
-            <p class="control">
-            <span class="select">
-                <select id="type" name="type">
-                    <option value="title">제목</option>
-                    <option value="content">내용</option>
-                </select>
-            </span>
-            </p>
-            <p class="control">
-                <input class="input" type="text" id="keyword" name="keyword" placeholder="검색어를 입력하세요" value="${keyword }">
-            </p>
-            <p class="control">
-                <input type="submit" class="button is-mainColor" value="검색" />
-            </p>
-            </form>--%>
-
             <div class="button-group">
                 <c:choose>
                     <c:when test="${not empty sid }">
@@ -247,8 +229,6 @@
         </div>
     </div>
 </div>
-<!-- 푸터 부분 인클루드 -->
-
 <script>
     function checkLogin() {
         var confirmLogin = confirm("글 작성은 로그인이 필요합니다. 로그인하시겠습니까?");
@@ -257,6 +237,9 @@
         }
     }
 </script>
+
+<br/>
+<br/>
 
 <!-- Footer Start -->
 <jsp:include page="../include/footer.jsp" />

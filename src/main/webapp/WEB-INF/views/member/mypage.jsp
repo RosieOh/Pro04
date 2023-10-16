@@ -50,15 +50,15 @@
 </style>
 </head>
 <body>
+<!-- 헤더 부분 인클루드 -->
+<jsp:include page="../include/header.jsp"></jsp:include>
 <div class="container is-fullhd">
-    <!-- 헤더 부분 인클루드 -->
-    <jsp:include page="../include/header.jsp"></jsp:include>
     <figure class="visual" id="vs1">
         <!-- 이미지 슬라이더 부분은 그대로 두세요. -->
     </figure>
     <div class="content" id="content">
         <div class="row column text-center">
-            <div class="container form-container"> <!-- 폼 컨테이너 -->
+            <div class="container form-container">
                 <c:if test="${sid=='admin' }">
                     <h2 class="page_tit">관리자 회원 정보 수정하기</h2>
                 </c:if>

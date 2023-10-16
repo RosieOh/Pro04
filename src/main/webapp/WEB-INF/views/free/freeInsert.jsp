@@ -17,6 +17,7 @@
 <jsp:include page="../include/header.jsp" />
 <!-- Header Close -->
 
+<%--완료 --%>
 <div class="container is-fullhd">
     <div class="columns">
         <div class="column is-2">

@@ -24,7 +24,6 @@
         order by regdate desc LIMIT #{postStart}, #{postCount}
         ]]>
     </select>
-    <!-- 글 상세보기 -->
     <select id="freeDetail" resultType="kr.ed.haebeop.domain.Free">
         select * from free where fno=#{fno}
     </select>
@@ -105,15 +104,16 @@
 
     <!-- 댓글 리스트-->
     <select id="freeCommentList" resultType="kr.ed.haebeop.domain.FreeComment">
-        select * from freecommentlist where fno=#{fno}
+        select * from free_comment where fno=#{fno}
     </select>
-    <!--    댓글 삽입-->
+    <!-- 댓글 삽입-->
     <insert id="commentInsert">
-        INSERT INTO free_comment(fno, author, content) VALUES(#{fno}, #{author}, #{content});
+        INSERT INTO freecommentlist(fno, author, content) VALUES(#{fno}, #{author}, #{content});
     </insert>
-    <!--    댓글 삭제-->
+
+    <!-- 댓글 삭제-->
     <delete id="commentDelete">
-        delete from free_comment where cno=#{cno}
+        delete from freecommentlist where cno=#{cno}
     </delete>
 
     <!--    리스트에 댓글 수 불러오기-->
@@ -125,8 +125,8 @@
     </select>
 
 
-    <select id="findReco" resultType="kr.ed.haebeop.domain.Record">
-        select * from record where fno=#{fno} and id=#{id}
+    <select id="findRecord" parameterType="map" resultType="kr.ed.haebeop.domain.Record">
+        SELECT * FROM record WHERE fno = #{fno} AND id = #{id}
     </select>
 
     <select id="memberFindRecord" resultType="kr.ed.haebeop.domain.Record">

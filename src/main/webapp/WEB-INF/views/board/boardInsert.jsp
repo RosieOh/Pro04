@@ -12,14 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>해법학원</title>
     <jsp:include page="../include/head.jsp" />
-
-    <!-- Include CKEditor JavaScript -->
-    <script type="text/javascript" src="${path1 }/resources/ckeditor/ckeditor.js"></script>
-
-    <script>
-        // Initialize CKEditor on the 'content' textarea
-        CKEDITOR.replace('content', {browserUploadUrl:'${path1}/board/imageUpload.do'});
-    </script>
 </head>
 <body>
 <!-- Header Start -->
@@ -45,6 +37,9 @@
                         <td>
                             <!-- 'content' textarea for CKEditor -->
                             <textarea name="content" id="content" rows="8" cols="100" required></textarea>
+                            <script>
+                                CKEDITOR.replace('content',	{filebrowserUploadUrl:'${path1}/board/imageUpload.do'});
+                            </script>
                         </td>
                     </tr>
                     <tr>

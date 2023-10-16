@@ -61,9 +61,9 @@
                 <div class="card-content">
                     <div class="media">
                         <div class="media-content has-text-centered">
-                            <h1 class="title article-title">${freeDTO.title }</h1>
+                            <h1 class="title article-title">${free.title }</h1>
                             <h6 class="subtitle is-6 article-subtitle">
-                                ${freeDTO.id } | ${freeDTO.regdate } | 조회수:${freeDTO.visited }
+                                ${free.id } | ${free.regdate } | 조회수:${free.visited }
                             </h6>
                         </div>
                     </div>
@@ -71,43 +71,32 @@
 
                     <div class="content article-body">
                         <p>
-                            ${freeDTO.content }
+                            ${free.content }
                         </p>
                     </div>
                 </div>
 
                 <div class="img-container">
-                    <input type="hidden" id="rec_check" value="${recoDTO.flag }">
+                    <input type="hidden" id="rec_check" value="${record.flag }">
                     <%--<h1>${recoDTO.flag } </h1>--%>
                     <img src="${path1}/resources/img/before_rec.png" id="recimg" width="70px" height="70px">
                 </div>
                 <p class="has-text-centered has-text-info has-text-weight-bold is-size-5 is-large" id='thumbCnt'>
-                    ${freeDTO.rec }
+                    ${free.rec }
                 </p>
 
                 <div class="columns mt-5">
-                    <%--<div class="column is-3"></div>
-                    <div class="column is-2">
-                        <a class="button is-fullwidth is-info" href="${path1 }/free/list.do">글 목록</a>
-                    </div>
-                    <div class="column is-2">
-                        <a class="button is-fullwidth is-primary" href="${path1 }/free/edit.do?bno=${freeDTO.bno}">글 수정</a>
-                    </div>
-                    <div class="column is-2">
-                        <a class="button is-fullwidth is-danger" href="${path1 }/free/delete.do?bno=${freeDTO.bno}">글 삭제</a>
-                    </div>
-                    <div class="column is-3"></div>--%>
                     <c:choose>
-                        <c:when test="${not empty sid && (sid eq 'admin' || sid eq freeDTO.id)}">
+                        <c:when test="${not empty sid && (sid eq 'admin' || sid eq free.id)}">
                             <div class="column is-3"></div>
                             <div class="column is-2">
                                 <a class="button is-fullwidth" style="background-color: #2B3A55; color: #fff;" href="${path1 }/free/list.do">글 목록</a>
                             </div>
                             <div class="column is-2">
-                                <a class="button is-fullwidth is-info" href="${path1 }/free/edit.do?bno=${freeDTO.bno}">글 수정</a>
+                                <a class="button is-fullwidth is-info" href="${path1 }/free/edit.do?fno=${free.fno}">글 수정</a>
                             </div>
                             <div class="column is-2">
-                                <a class="button is-fullwidth is-danger" href="${path1 }/free/delete.do?bno=${freeDTO.bno}">글 삭제</a>
+                                <a class="button is-fullwidth is-danger" href="${path1 }/free/delete.do?fno=${free.fno}">글 삭제</a>
                             </div>
                             <div class="column is-3"></div>
                         </c:when>
@@ -125,11 +114,11 @@
 
             <div class="cmtwrap">
                 <c:if test="${!empty sid}">
-                    <form action="${path1 }/free/detail.do?bno=${freeDTO.bno }" method="post" class="columns mt-5">
+                    <form action="${path1 }/free/detail.do?fno=${free.fno }" method="post" class="columns mt-5">
                         <div class="column is-10">
                             <textarea class="textarea" name="content" id="content" placeholder="댓글을 입력해주세요." rows="2" cols="30" maxlength="800" required></textarea>
                             <input type="hidden" name="author" id="author" value="${sid }">
-                            <input type="hidden" name="bno" id="bno" value="${freeDTO.bno }">
+                            <input type="hidden" name="fno" id="fno" value="${free.fno }">
                         </div>
                         <div class="column is-2">
                             <button type="submit" class="button is-fullwidth submission">등록</button>
@@ -162,7 +151,7 @@
                     </div>
                     <c:if test='${sid eq comment.author }'>
                         <div class="media-right">
-                            <a class="delete" style="background-color: #2B3A55" href="${path1 }/free/commentDelete.do?bno=${freeDTO.bno }&cno=${comment.cno }">x</a>
+                            <a class="delete" style="background-color: #2B3A55" href="${path1 }/free/commentDelete.do?fno=${free.fno }&cno=${comment.cno }">x</a>
                         </div>
                     </c:if>
                 </article>
@@ -173,9 +162,9 @@
 </div>
 <script>
     $(document).ready(function () {
-        const bno = '${freeDTO.bno }';
+        const bno = '${free.fno }';
         const id = "${sid }";
-        const author = '${freeDTO.id }';
+        const author = '${free.id }';
 
         console.log('bno:'+bno);
         console.log('id:'+id);
@@ -204,7 +193,7 @@
             $.ajax({
                 url: '${path1}/free/rec',
                 type: 'POST',
-                data: { 'bno': bno, 'id': id},
+                data: { 'fno': fno, 'id': id},
                 success: function (response) {
                     let res = response.res;
                     if (res == 1) {
@@ -214,7 +203,7 @@
                         $("#recimg").attr("src", "${path1}/resources/img/before_rec.png");
                         //alert("이미 추천한 게시물입니다.");
                     }
-                    $("#thumbCnt").html(response.reco);
+                    $("#thumbCnt").html(response.record);
                 }, error: function () {
                     $("#recimg").attr("src", "${path1}/resources/img/after_rec.png");
                     console.log('오타 찾으세요')
