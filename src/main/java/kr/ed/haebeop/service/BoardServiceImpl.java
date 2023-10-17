@@ -1,6 +1,7 @@
 package kr.ed.haebeop.service;
 import java.util.List;
 
+import kr.ed.haebeop.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

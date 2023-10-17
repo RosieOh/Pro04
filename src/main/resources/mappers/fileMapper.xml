@@ -57,4 +57,58 @@
     <update id="countUp">
         update fileboard set visited=visited+1 where postno=#{postNo}
     </update>
+
+    <!-- 검색창 (제목, 내용) -->
+    <sql id="criteria">
+        <where>
+            <trim prefixOverrides="OR">
+                <foreach item="type" collection="typeArr">
+                    <trim prefixOverrides="OR">
+                        <choose>
+                            <when test="type == 'T'.toString()">
+                                title LIKE '%' || #{keyword} || '%'
+                            </when>
+                            <when test="type == 'C'.toString()">
+                                content LIKE '%' || #{keyword} || '%'
+                            </when>
+                        </choose>
+                    </trim>
+                </foreach>
+            </trim>
+        </where>
+    </sql>
+
+    <!-- 글 수 카운트 -->
+    <select id="totalCount" resultType="integer">
+        <![CDATA[
+    select count(*) from fileboard
+       ]]>
+        <where>
+            <if test="searchType != null">
+                <choose>
+                    <when test="searchType == 'title'.toString()">
+                        title LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                    <when test="searchType == 'content'.toString()">
+                        content LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+
+    <!-- 페이징 처리 -->
+    <select id="getListWithPaging" resultType="kr.ed.haebeop.domain.FileBoard">
+        <![CDATA[
+        select * from fileboard
+        ]]>
+        <include refid="criteria" />
+        <![CDATA[
+        ORDER BY regdate DESC LIMIT ((#{pageNum} - 1) * #{amount}), #{amount}
+        ]]>
+    </select>
+
+
 </mapper>
+
+

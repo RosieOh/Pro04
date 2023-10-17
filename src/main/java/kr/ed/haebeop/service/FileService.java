@@ -2,10 +2,12 @@ package kr.ed.haebeop.service;
 
 import kr.ed.haebeop.domain.FileDTO;
 import kr.ed.haebeop.domain.FileVO;
+import kr.ed.haebeop.util.Page;
 
 import java.util.List;
 
 public interface FileService {
+
     public void insertFileboard(FileVO fileboard) throws Exception;
 
     public List<FileVO> getFileList() throws Exception;
@@ -23,4 +25,6 @@ public interface FileService {
     public FileDTO getFile(int no) throws Exception;
 
     public void removeAllFile(int postNo) throws Exception;
+
+    public int totalCount(Page page) throws Exception;
 }

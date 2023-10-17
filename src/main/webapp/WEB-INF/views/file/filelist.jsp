@@ -20,6 +20,10 @@
 <jsp:include page="../include/header.jsp" />
 <!-- Header Close -->
 
+<!-- Slider Start -->
+<jsp:include page="fileBanner.jsp"/>
+<!-- Slider end -->
+
 <!-- Content Start -->
 <div class="container mt-5">
     <h1 class="text-center">자료실 목록</h1>

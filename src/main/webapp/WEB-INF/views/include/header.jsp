@@ -8,6 +8,8 @@
 <c:set var="path1" value="${pageContext.servletContext.contextPath }" />
 
 <header class="navigation">
+
+  <%-- header 네비게이션 --%>
   <div class="header-top">
     <div class="container" style="padding: 9px 15px">
       <div class="columns is-gapless is-justify-content-space-between is-align-items-center">
@@ -39,12 +41,13 @@
             <a href="#">
               <i class="icofont-google-map has-text-white"> 오시는길</i>
             </a>
-            <%--<a href="donation.html" class="top-btn">Donate Now</a>--%>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <%-- header 네비게이션 --%>
+
   <nav id="navbar" class="navbar main-nav">
     <div class="container">
       <div class="navbar-brand">
@@ -76,15 +79,22 @@
             <a class="navbar-link">커뮤니티</a>
             <div class="navbar-dropdown">
               <a class="navbar-item" href="${path1}/board/list.do">공지사항</a>
-              <a class="navbar-item" href="#">자주 묻는 질문</a>
               <a class="navbar-item" href="#">후기</a>
+              <a class="navbar-item" href="${path1}/free/list.do">자유게시판</a>
               <a class="navbar-item" href="#">교육 뉴스</a>
-              <a class="navbar-item" href="contact.html">Contact</a>
             </div>
           </li>
 
           <li class="navbar-item">
             <a class="navbar-link" href="${path1}/file/filelist1.do">자료실</a>
+          </li>
+
+          <li class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">고객센터</a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="#">자주 묻는 질문</a>
+              <a class="navbar-item" href="contact.html">Contact</a>
+            </div>
           </li>
         </ul>
       </div>

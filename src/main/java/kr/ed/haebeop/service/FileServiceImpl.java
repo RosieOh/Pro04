@@ -1,8 +1,8 @@
 package kr.ed.haebeop.service;
 
-import kr.ed.haebeop.repository.FileRepository;
 import kr.ed.haebeop.domain.FileDTO;
 import kr.ed.haebeop.domain.FileVO;
+import kr.ed.haebeop.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +13,7 @@ public class FileServiceImpl implements FileService {
 
     @Autowired
     FileRepository fileRepository;
+
 
     @Override
     public void insertFileboard(FileVO fileboard) throws Exception {
@@ -58,6 +59,11 @@ public class FileServiceImpl implements FileService {
     public void removeAllFile(int postNo) throws Exception {
         fileRepository.removeAllFile(postNo);
 
+    }
+
+    @Override
+    public int totalCount(Page page) throws Exception {
+        return fileRepository.totalCount(page);
     }
 
 

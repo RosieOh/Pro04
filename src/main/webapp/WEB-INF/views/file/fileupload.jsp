@@ -20,6 +20,10 @@
 <jsp:include page="../include/header.jsp" />
 <!-- Header Close -->
 
+<!-- Slider Start -->
+<jsp:include page="fileBanner.jsp"/>
+<!-- Slider end -->
+
 <!-- Content Start -->
 <div class="content" id="contents">
     <div class="row column text-center">

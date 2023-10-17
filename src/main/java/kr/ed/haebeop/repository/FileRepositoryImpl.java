@@ -3,12 +3,12 @@ package kr.ed.haebeop.repository;
 import kr.ed.haebeop.domain.FileBoard;
 import kr.ed.haebeop.domain.FileDTO;
 import kr.ed.haebeop.domain.FileVO;
+import kr.ed.haebeop.util.Page;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,4 +93,11 @@ public class FileRepositoryImpl implements FileRepository {
     public void removeAllFile(int postNo) throws Exception {
         sqlSession.delete("fileboard.fileDelete", postNo);
     }
+
+    @Override
+    public int totalCount(Page page) throws Exception {
+        return sqlSession.selectOne("fileboard.totalCount", page);
+    }
+
+
 }

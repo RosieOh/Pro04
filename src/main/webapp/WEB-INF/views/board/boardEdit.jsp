@@ -18,6 +18,10 @@
 <jsp:include page="../include/header.jsp" />
 <!-- Header Close -->
 
+<!-- Slider Start -->
+<jsp:include page="boardBanner.jsp"/>
+<!-- Slider end -->
+
 <div class="content" id="content">
     <div class="row column text-center">
         <h2 class="h1">공지사항 글 수정</h2>

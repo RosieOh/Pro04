@@ -4,6 +4,7 @@ import kr.ed.haebeop.domain.FileBoard;
 import kr.ed.haebeop.domain.FileDTO;
 import kr.ed.haebeop.domain.FileVO;
 import kr.ed.haebeop.service.FileService;
+import kr.ed.haebeop.util.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -34,6 +36,9 @@ public class FileController {
 
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    HttpSession session;
 
     @GetMapping("fileupload1.do")
     public String fileUploadForm(){
@@ -110,7 +115,26 @@ public class FileController {
     }
 
     @GetMapping("filelist1.do")
-    public String getFileList(Model model) throws Exception {
+    public String getFileList(HttpServletRequest request, Model model) throws Exception {
+        String type = request.getParameter("type");
+        String keyword = request.getParameter("keyword");
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+
+        Page page = new Page();
+        page.setSearchType(type);
+        page.setSearchKeyword(keyword);
+        int total = fileService.totalCount(page);
+
+        page.makeBlock(curPage, total);
+        page.makeLastPageNum(total);
+        page.makePostStart(curPage, total);
+
+        model.addAttribute("type", type);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("page", page);
+        model.addAttribute("curPage", curPage);
+
+
         List<FileVO> fileboardList = fileService.getFileList();
         model.addAttribute("fileboardList", fileboardList);
         return "/file/filelist";

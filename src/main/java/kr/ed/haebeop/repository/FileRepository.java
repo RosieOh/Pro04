@@ -2,6 +2,7 @@ package kr.ed.haebeop.repository;
 
 import kr.ed.haebeop.domain.FileDTO;
 import kr.ed.haebeop.domain.FileVO;
+import kr.ed.haebeop.util.Page;
 
 import java.util.List;
 
@@ -15,4 +16,5 @@ public interface FileRepository {
     public void fileRemove(int no) throws Exception;
     public FileDTO getFile(int no) throws Exception;
     public void removeAllFile(int postNo) throws Exception;
+    public int totalCount(Page page) throws Exception;
 }
