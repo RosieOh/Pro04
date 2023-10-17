@@ -31,8 +31,8 @@ public class QnaServiceImpl implements QnaService{
     }
 
     @Override
-    public void qnaDelete(Qna domain) throws Exception {
-        qnaRepository.qnaDelete(domain);
+    public void qnaDelete(int qno) throws Exception {
+        qnaRepository.qnaDelete(qno);
     }
 
     @Override

@@ -10,7 +10,7 @@ public interface QnaRepository {
     public List<Qna> QnaList(Page page) throws Exception;
     public Qna qnaDetail(int qno) throws Exception;
     public void qnaInsert(Qna domain) throws Exception;
-    public void qnaDelete(Qna domain) throws Exception;
+    public void qnaDelete(int qno) throws Exception;
     public void qnaEdit(Qna domain) throws Exception;
     public int totalCount(Page page) throws Exception;
     public List<Qna> qnaSelectBest() throws Exception;

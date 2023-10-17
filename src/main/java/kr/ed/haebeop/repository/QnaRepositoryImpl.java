@@ -34,8 +34,8 @@ public class QnaRepositoryImpl implements QnaRepository {
     }
 
     @Override
-    public void qnaDelete(Qna domain) throws Exception {
-        sqlSession.delete("qna.qnaDelete", domain);
+    public void qnaDelete(int qno) throws Exception {
+        sqlSession.delete("qna.qnaDelete", qno);
     }
 
     @Override
