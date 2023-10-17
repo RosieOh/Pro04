@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comment {
-    private String dno;
+    private String cno;
     private String author;
     private String content;
     private String regdate;

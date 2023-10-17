@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Teacher {
     private String tid;
-    private String teacher_name;
+    private String name;
     private String tel;
     private String email;
 }

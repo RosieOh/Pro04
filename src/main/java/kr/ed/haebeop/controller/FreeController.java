@@ -44,7 +44,7 @@ public class FreeController {
 
         Page page = new Page();
         page.setSearchType(type);
-        page.setSearchKeyWord(keyword);
+        page.setSearchKeyword(keyword);
         int total = freeService.totalCount(page);
 
         page.makeBlock(curPage, total);
@@ -69,7 +69,7 @@ public class FreeController {
         List<Free> freeBestCommentList = freeService.freeBestCommentList();
         model.addAttribute("freeBestCommentList", freeBestCommentList);
         //System.out.println("최다 댓글 리스트 : " + freeBestCmtList);
-        for (Free fr :freeBestCommentList) {
+        for (Free fr : freeBestCommentList) {
             fr.setCount(commentMap.get(fr.getFno()));
         }
         for (Free free : freeList) {
@@ -78,6 +78,7 @@ public class FreeController {
         }
         return "/free/freeList";
     }
+
     // board와 형태 유사 - domain 조심
     @GetMapping("detail.do")
     public String getfreeDetail(HttpServletRequest request, Model model) throws Exception {
@@ -92,7 +93,7 @@ public class FreeController {
         model.addAttribute("record", record);
         model.addAttribute("member", member);
 
-        List<FreeComment> commentList = freeService.freeCommentList();
+        List<FreeComment> commentList = freeService.freeCommentList(fno);
 
         model.addAttribute("commentList", commentList);
         return "/free/freeDetail";
@@ -106,7 +107,7 @@ public class FreeController {
         dto.setFno(fno);
         dto.setAuthor(request.getParameter("author"));
         freeService.freeCommentInsert(dto);
-        return "redirect:detail.do?fno="+fno;
+        return "redirect:detail.do?fno=" + fno;
     }
 
     @GetMapping("commentDelete.do")
@@ -114,7 +115,7 @@ public class FreeController {
         int fno = Integer.parseInt(request.getParameter("fno"));
         int cno = Integer.parseInt(request.getParameter("cno"));
         freeService.freeCommentDelete(cno);
-        return "redirect:detail.do?fno="+fno;
+        return "redirect:detail.do?fno=" + fno;
     }
 
     @GetMapping("insert.do")
@@ -272,15 +273,14 @@ public class FreeController {
             }
         }
     }
+
     @PostMapping("rec")
     @ResponseBody
-    public Map<String, Integer> rec(@ModelAttribute Record reco) throws Exception {
+    public int rec(@ModelAttribute Record reco) throws Exception {
         int result = freeService.insertRecord(reco);
-        int fno = reco.getFno();
-        Map<String, Integer> resultMap = new HashMap<>();
-        resultMap.put("res", result);
-        resultMap.put("record", freeService.freeDetail(fno).getRec());
-        freeService.hitsDown(fno);
-        return resultMap;
+        System.out.println("result : " + result);
+        //reco.
+
+        return result;
     }
 }

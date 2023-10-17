@@ -3,7 +3,6 @@ package kr.ed.haebeop.service;
 import kr.ed.haebeop.domain.Qna;
 import kr.ed.haebeop.domain.QnaComment;
 import kr.ed.haebeop.persistence.QnaMapper;
-import kr.ed.haebeop.repository.QnaRepository;
 import kr.ed.haebeop.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

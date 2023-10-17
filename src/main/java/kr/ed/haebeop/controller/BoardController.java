@@ -2,6 +2,7 @@ package kr.ed.haebeop.controller;
 
 import kr.ed.haebeop.domain.Board;
 import kr.ed.haebeop.service.BoardService;
+import kr.ed.haebeop.util.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,19 +28,38 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    @GetMapping("list.do")		//board/list.do
-    public String getBoardList(Model model) throws Exception {
-        logger.info("게시판 페이지 진입");
-        List<Board> boardList = boardService.boardList();
+    @GetMapping("list.do")
+    public String getBoardList(HttpServletRequest request, Model model) throws Exception {
+        String type = request.getParameter("type");
+        String keyword = request.getParameter("keyword");
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+
+        Page page = new Page();
+        page.setSearchType(type);
+        page.setSearchKeyword(keyword);
+        int total = boardService.totalCount(page);
+
+        page.makeBlock(curPage, total);
+        page.makeLastPageNum(total);
+        page.makePostStart(curPage, total);
+
+        model.addAttribute("type", type);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("page", page);
+        model.addAttribute("curPage", curPage);
+
+        List<Board> boardList = boardService.boardList(page);
         model.addAttribute("boardList", boardList);
+
         return "/board/boardList";
     }
+
 
     @GetMapping("detail.do")	//board/detail.do?seq=1
     public String getBoardDetail(HttpServletRequest request, Model model) throws Exception {
         int bno = Integer.parseInt(request.getParameter("bno"));
-        Board dto = boardService.boardDetail(bno);
-        model.addAttribute("dto", dto);
+        Board domain = boardService.boardDetail(bno);
+        model.addAttribute("domain", domain);
         return "/board/boardDetail";
     }
 
@@ -50,10 +70,10 @@ public class BoardController {
 
     @PostMapping("insert.do")
     public String boardInsert(HttpServletRequest request, Model model) throws Exception {
-        Board dto = new Board();
-        dto.setTitle(request.getParameter("title"));
-        dto.setContent(request.getParameter("content"));
-        boardService.boardInsert(dto);
+        Board domain = new Board();
+        domain.setTitle(request.getParameter("title"));
+        domain.setContent(request.getParameter("content"));
+        boardService.boardInsert(domain);
         return "redirect:list.do";
     }
 
@@ -67,19 +87,19 @@ public class BoardController {
     @GetMapping("edit.do")
     public String editForm(HttpServletRequest request, Model model) throws Exception {
         int bno = Integer.parseInt(request.getParameter("bno"));
-        Board dto = boardService.boardDetail(bno);
-        model.addAttribute("dto", dto);
+        Board domain = boardService.boardDetail(bno);
+        model.addAttribute("dto", domain);
         return "/board/boardEdit";
     }
 
     @PostMapping("edit.do")
     public String boardEdit(HttpServletRequest request, Model model) throws Exception {
         int bno = Integer.parseInt(request.getParameter("bno"));
-        Board dto = new Board();
-        dto.setBno(bno);
-        dto.setTitle(request.getParameter("title"));
-        dto.setContent(request.getParameter("content"));
-        boardService.boardEdit(dto);
+        Board domain = new Board();
+        domain.setBno(bno);
+        domain.setTitle(request.getParameter("title"));
+        domain.setContent(request.getParameter("content"));
+        boardService.boardEdit(domain);
         return "redirect:list.do";
     }
 
