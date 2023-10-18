@@ -558,7 +558,7 @@ ul.list-styled {
 .header-top {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   font-size: 14px;
-  background: #00A2FF;
+  background: linear-gradient(to right, #71AEE8, #77E9CE);
 }
 @media (max-width: 1023px) {
   .header-top {
@@ -626,15 +626,17 @@ ul.list-styled {
 }
 
 .navbar-dropdown {
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.2s ease-in, visibility 0s linear 0.2s, transform 0.2s linear;
-  width: 220px;
-  padding: 0px;
-  border-radius: 0px;
-  display: block;
-  border: 0;
-  z-index: -1;
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: linear-gradient(to right, #71AEE8, #77E9CE);
+  transform: translate(-50%,0);
+  border-radius: 0 30px 30px 30px;
+  transition: .2s linear;
+  color: #ffffff;
 }
 .navbar-dropdown.align-right {
   left: auto;

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.ed.haebeop.persistence.CourseMapper">
+    <select id="CourseList" resultType="kr.ed.haebeop.domain.Course">
+        <![CDATA[
+        select * from course
+        ]]>
+        <where>
+            <if test="searchType != null">
+                <choose>
+                    <when test="searchType == 'title'.toString()">
+                        course_name LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                    <when test="searchType == 'content'.toString()">
+                        content LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                </choose>
+            </if>
+        </where>
+        <![CDATA[
+        order by cno desc LIMIT #{postStart}, #{postCount}
+        ]]>
+    </select>
+    <select id="getCourse" resultType="kr.ed.haebeop.domain.Course">
+        select * from course where cno = #{cno }
+    </select>
+    <insert id="courseInsert">
+        INSERT INTO course VALUES(DEFAULT, #{course_name}, #{price}, #{start_date}, #{end_date},
+                                  #{total_num}, #{curr_num}, #{teacher_name}, #{content},
+                                  #{book_name}, #{book_price}, #{imgsrc1}, #{imgsrc2})
+    </insert>
+    <update id="courseUpdate">
+        UPDATE course SET course_name = #{course_name} WHERE cno = #{cno}
+    </update>
+    <delete id="courseDelete">
+        DELETE FROM course WHERE cno = #{cno}
+    </delete>
+
+    <!-- 글 수 카운트 -->
+    <select id="courseCount" resultType="integer">
+        <![CDATA[
+        select count(*) from course
+        ]]>
+        <where>
+            <if test="searchType != null">
+                <choose>
+                    <when test="searchType == 'title'.toString()">
+                        course_name LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                    <when test="searchType == 'content'.toString()">
+                        content LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+
+    <insert id="enrollInsert">
+        INSERT INTO enroll VALUES(DEFAULT, #{cno }, #{id }, DEFAULT, DEFAULT, #{enroll_price },10000)
+    </insert>
+    <!-- 등록할 때 강의 테이블의 현재 신청 인원 +1 추가-->
+    <update id="updateStudentNumber">
+        update course set curr_num =1+curr_num where cno=#{cno }
+    </update>
+    <!-- 수강등록 테이블에 해당 회원의 등록 여부 확인 -->
+    <select id="isEnroll" resultType="kr.ed.haebeop.domain.Enroll">
+        select * from enroll where id = #{id } and cno=#{cno}
+    </select>
+    <!-- 마이페이지에서 회원의 수강등록 현황 보기-->
+    <select id="getEnrollList" resultType="kr.ed.haebeop.domain.Enroll">
+        SELECT c.cno, c.course_name, c.start_date, c.end_date, c.imgsrc1, e.eno, e.id, e.complete, u.name
+        FROM course c
+                 INNER JOIN enroll e ON c.cno = e.cno
+                 INNER JOIN user u ON e.id = u.id
+        WHERE u.id = #{id } and e.complete = #{complete }
+    </select>
+    <update id="complete">
+        update enroll set complete =1 where eno=#{eno }
+    </update>
+    <select id="getMemberName" resultType="kr.ed.haebeop.domain.Member">
+        select name from member where id = #{id };
+    </select>
+</mapper>

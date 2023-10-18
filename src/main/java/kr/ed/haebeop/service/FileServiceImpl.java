@@ -2,6 +2,7 @@ package kr.ed.haebeop.service;
 
 import kr.ed.haebeop.domain.FileDTO;
 import kr.ed.haebeop.domain.FileVO;
+import kr.ed.haebeop.repository.FileRepository;
 import kr.ed.haebeop.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.List;
 public class FileServiceImpl implements FileService {
 
     @Autowired
-    FileRepository fileRepository;
+    private FileRepository fileRepository;
 
 
     @Override

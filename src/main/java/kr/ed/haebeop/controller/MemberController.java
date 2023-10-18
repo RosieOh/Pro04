@@ -126,7 +126,7 @@ public class MemberController {
         boolean ps = memberService.loginCheck(id, pw);
         if (ps) {
             session.setAttribute("sid", id);
-            return "redirect:/";
+            return "redirect:/Home";
         } else {
             // 로그인 실패 시 메시지를 모델에 추가
             model.addAttribute("loginError", "아이디와 비밀번호가 일치하지 않습니다.");

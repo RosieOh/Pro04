@@ -17,7 +17,7 @@
             <ul class="snb">
                 <%--<li><a href="https://www.facebook.com/geniaAcademyManager">소셜2</a></li>--%>
                 <li>
-                    <a href="https://www.instagram.com/genia.academy" target="_blank">
+                    <a href="https://www.instagram.com/canmoreapdalisal/" target="_blank">
                         <i class="xi-instagram"></i>
                     </a>
                 </li>
@@ -36,19 +36,18 @@
         <script>
             function loc() {
                 var url = document.getElementById("sel").value;
-                //location.href = url;  //현재 창에
                 if (url != "") {
-                    var win = window.open(url); //새창에
+                    var win = window.open(url);
                 }
             }
         </script>
     </div>
     <div class="ft_wrap2">
         <p class="copyright">
-            <span>(주)Week</span>
+            <span>(주)TeamLimked</span>
             <span>서울시 금천구 가산로9길 54</span>
-            <span>대표자 서광</span>
-            <span>사업자등록번호 119-81-19350</span>
+            <span>대표자 오태훈</span>
+            <span>사업자등록번호 123-45-678910</span>
             <span>통신판매신고번호 제18-439호</span>
             <span class="end">부가통신사업신고 016712</span>
         </p>
