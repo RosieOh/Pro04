@@ -783,6 +783,20 @@ CREATE TABLE enroll (
 INSERT INTO enroll VALUES(DEFAULT, 1, "park", DEFAULT, DEFAULT, 141000, "리딩북");
 
 
+-- 결제 테이블 생성
+create table payment(
+                        sno serial primary key,
+                        cid varchar(20) not null,
+                        pno integer not null,
+                        amount integer default 1,
+                        pmethod varchar(100),
+                        pcom varchar(100),
+                        cnum varchar(100),
+                        payprice integer default 1000,
+                        dno varchar(100)
+);
+
+
 
 
 
