@@ -51,7 +51,7 @@
     </update>
     <!-- 파일 자료 삭제 -->
     <delete id="fileboardDelete">
-        delete from fileboard where postno=#{postno}
+        delete from fileboard where postno=#{postNo}
     </delete>
     <!-- 파일 자료 상세보기시 읽은 횟수 증가 -->
     <update id="countUp">

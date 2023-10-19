@@ -123,23 +123,24 @@
                     $(".remove_btn").click(function(){
                         var tar = {
                             no : parseInt($(this).attr("data1")),
-                            postNo:parseInt($(this).attr("data2"))
+                            postNo: parseInt($(this).attr("data2"))
                         };
                         $.ajax({
-                            url:"${path1}/file/fileRemove.do", //요청URL
-                            type:"post",    //요청 전송방식
+                            url:"${path1}/file/fileRemove.do", // 요청 URL
+                            type:"post",    // 요청 전송 방식
                             dataType:"json",
-                            data:tar,
-                            sucess:function(){
+                            data: tar,
+                            success: function(){
                                 console.log("파일 삭제 성공");
                             },
-                            error:function(){
+                            error: function(){
                                 console.log("파일 삭제 실패");
                             }
                         });
                     });
                 });
             </script>
+
         </div>
     </div>
 </div>

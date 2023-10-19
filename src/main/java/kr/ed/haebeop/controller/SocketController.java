@@ -41,7 +41,7 @@ public class SocketController {
         sendAllSessionToMessage(session, session.getId()+"님 입장~!");
         sessionList.add(session);
     }
-    // ws:http://localhost:8080/pro04_war/socket
+    // ws:htt[l
     @OnMessage
     public void onMessage (String message, Session session) {
         /*

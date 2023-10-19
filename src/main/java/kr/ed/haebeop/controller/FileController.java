@@ -5,6 +5,7 @@ import kr.ed.haebeop.domain.FileDTO;
 import kr.ed.haebeop.domain.FileVO;
 import kr.ed.haebeop.service.FileService;
 import kr.ed.haebeop.util.Page;
+import org.dom4j.rule.Mode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -171,6 +172,74 @@ public class FileController {
         FileVO fileboard = fileService.getFilebord(postNo);
         model.addAttribute("fileboard", fileboard);
         return "/file/modifyFileboard";
+    }
+
+    @PostMapping("modifyFileboard.do")
+    public String modifyFileboard(@RequestParam(required = false, defaultValue = "0") int postNo, MultipartHttpServletRequest multi, HttpServletRequest request, Model model) throws Exception {
+        //파라미터 분리
+        Enumeration<String> e = multi.getParameterNames();
+        Map map = new HashMap();
+        while (e.hasMoreElements()) {
+            String name = e.nextElement();
+            String value = multi.getParameter(name);
+            map.put(name, value);
+        }
+
+        //제목 및 내용 분리
+        FileBoard board = new FileBoard();
+        board.setTitle((String) map.get("title"));
+        board.setContent((String) map.get("content"));
+
+        //uploadPath; //dispatcher-servlet에서 지정한 경로
+        //req.getContextPath(); //현재 프로젝트 홈 경로 - /pro3_war
+        //req.getServletPath();   //요청된 URL - /pro3_war/file/fileupload1.do
+        //req.getRealPath("/resources/upload")  //현재 프로젝트에 저장될 실제 경로
+        String devFolder = uploadPath + "/resources/upload";    //개발자용 컴퓨터에 업로드 디렉토리 지정
+        String uploadFolder = request.getRealPath("/resources/upload");
+        log.info("-----------------------------------");
+        log.info(" 현재 프로젝트 홈 : "+request.getContextPath());
+        log.info(" dispatcher-servlet에서 지정한 경로 : "+uploadPath);
+        log.info(" 요청 URL : "+request.getServletPath());
+        log.info(" 프로젝트 저장 경로 : "+request.getRealPath("/resources/upload"));
+        //여러 파일 반복 저장
+        List<FileDTO> fileList = new ArrayList<>();
+        Iterator<String> it = multi.getFileNames();
+        while(it.hasNext()){
+            String paramfName = it.next();
+            MultipartFile file = multi.getFile(paramfName);
+            log.info("-----------------------------------");
+            log.info("name : "+file.getOriginalFilename());
+            log.info("size : "+file.getSize());
+            log.info("path : ");
+
+            File saveFile = new File(uploadFolder, file.getOriginalFilename()); //실제 파일 객체 생성
+            //File devFile = new File(devFolder, file.getOriginalFilename()); //개발자용 컴퓨터에 해당파일 생성
+
+            FileDTO data = new FileDTO();
+            data.setSaveFolder(uploadFolder);
+            data.setOriginFile(file.getOriginalFilename());
+            data.setSaveFile(saveFile.getPath());
+            data.setFileSize(file.getSize());
+            Date today = new Date();
+            data.setUploadDate(today.toString());
+            fileList.add(data);
+            try {
+                file.transferTo(saveFile);  //실제 디렉토리에 해당파일 저장
+                //file.transferTo(devFile); //개발자용 컴퓨터에 해당파일 저장
+            } catch(IllegalStateException e1){
+                log.info(e1.getMessage());
+            } catch(IOException e2){
+                log.info(e2.getMessage());
+            }
+        }
+
+        FileVO fileboard = new FileVO();
+        fileboard.setFileList(fileList);
+        fileboard.setFileBoard(board);
+
+        fileService.insertFileboard(fileboard);
+
+        return "redirect:filelist1.do";
     }
 
     @PostMapping("fileRemove.do")
