@@ -40,34 +40,6 @@
 <div class="container is-fullhd">
     <!-- 헤더 부분 인클루드 -->
     <jsp:include page="../include/header.jsp"></jsp:include>
-    <div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit="" data-options="animInFromLeft:fade-in; animInFromRight:fade-in; animOutToLeft:fade-out; animOutToRight:fade-out;" data-resize="qa57d9-orbit" id="qa57d9-orbit" data-e="9eilbx-e">
-        <ul class="orbit-container" tabindex="0" style="height:300px;">
-            <button class="orbit-previous" tabindex="0"><span class="show-for-sr">Previous Slide</span>◀︎</button>
-            <button class="orbit-next" tabindex="0"><span class="show-for-sr">Next Slide</span>▶︎</button>
-            <li class="orbit-slide" data-slide="0" style="display: none; position: relative; top: 0px;">
-                <img class="orbit-image" src="https://placehold.it/2000x300&amp;text=1st" alt="Space">
-                <figcaption class="orbit-caption">Space, the final frontier.</figcaption>
-            </li>
-            <li class="orbit-slide" data-slide="1" style="position: relative; top: 0px; display: none;">
-                <img class="orbit-image" src="https://placehold.it/2000x300&amp;text=2nd" alt="Space">
-                <figcaption class="orbit-caption">Lets Rocket!</figcaption>
-            </li>
-            <li class="orbit-slide" data-slide="2" style="position: relative; top: 0px; display: none;">
-                <img class="orbit-image" src="https://placehold.it/2000x300&amp;text=3nd" alt="Space">
-                <figcaption class="orbit-caption">Encapsulating</figcaption>
-            </li>
-            <li class="orbit-slide is-active" data-slide="3" style="position: relative; top: 0px; display: block;" aria-live="polite">
-                <img class="orbit-image" src="https://placehold.it/2000x300&amp;text=4nd" alt="Space">
-                <figcaption class="orbit-caption">Outta This World</figcaption>
-            </li>
-        </ul>
-        <nav class="orbit-bullets">
-            <button class="" data-slide="0"><span class="show-for-sr">First slide details.</span></button>
-            <button data-slide="1" class=""><span class="show-for-sr">Second slide details.</span></button>
-            <button data-slide="2" class=""><span class="show-for-sr">Third slide details.</span></button>
-            <button data-slide="3" class="is-active"><span class="show-for-sr">Fourth slide details.</span><span class="show-for-sr">Current Slide</span></button>
-        </nav>
-    </div>
     <div class="contents">
         <nav aria-label="You are here:" role="navigation">
             <ul class="breadcrumbs">

@@ -16,22 +16,22 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
 
-        * {
-            font-family: 'Nanum Gothic Coding', monospace;
-        }
+        /** {*/
+        /*    font-family: 'Nanum Gothic Coding', monospace;*/
+        /*}*/
 
-        .title {
-            font-family: 'Nanum Gothic Coding', monospace;
-            margin-top: 55px;
-            text-align: center;
-            font-weight: 700;
-        }
+        /*.title {*/
+        /*    font-family: 'Nanum Gothic Coding', monospace;*/
+        /*    margin-top: 55px;*/
+        /*    text-align: center;*/
+        /*    font-weight: 700;*/
+        /*}*/
 
-        .contents {
-            font-family: 'Nanum Gothic Coding', monospace;
-            text-align: center;
-            font-weight: 200;
-        }
+        /*.contents {*/
+        /*    font-family: 'Nanum Gothic Coding', monospace;*/
+        /*    text-align: center;*/
+        /*    font-weight: 200;*/
+        /*}*/
 
         .container {
             max-width: 1280px;
@@ -84,6 +84,16 @@
             word-break: keep-all;
         }
 
+        .paginate {
+            list-style-type: none;
+            width: 100%;
+            margin-top: 40px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .paginate .page-item {
             margin: 0 5px;
         }
@@ -111,6 +121,9 @@
         .item1, .item2, .item3, .item4 {
             font-size: 18px;
         }
+        .item1 { width:10%; }
+        .item2 { width:70%; }
+        .item3 { width:10%; }
 
         .button2 {
             text-decoration: none;
@@ -159,31 +172,39 @@
 <!-- Header Close -->
 
 <!-- Content Start -->
+<nav class="breadcrumb has-succeeds-separator is-medium is-right mt-3 p-4" style="background: #f1f4f9" aria-label="breadcrumbs">
+    <ul class="mr-5">
+        <li><a href="${path1}"><i class="xi-home is-size-3"></i></a></li>
+        <li><a>자료실</a></li>
+        <li><a href="${path1}/file/list.do">자료실</a></li>
+    </ul>
+    <p class="title has-text-centered mt-1 mb-2">자료실</p>
+</nav>
 <div class="container">
-    <h2 class="title">자료실 목록</h2>
-    <h3 class="contents">강의 및 교재에 대한 자료를 등록하는 곳입니다.</h3>
-    <br>
-    <div class="search_wrap">
-        <form action="${path1 }/file/list.do" method="get" class="field has-addons has-addons-right" style="margin-right: 315px;">
-            <p class="control">
+    <div class="columns is-multiline mt-1">
+        <div class="column is-4">
+            <form action="${path1 }/file/list.do" method="get" class="field has-addons">
+                <p class="control">
                 <span class="select">
-                    <select id="type" name="type" style="width: 240px;">
+                    <select id="type" name="type">
                         <option value="title">제목</option>
                         <option value="content">내용</option>
                     </select>
                 </span>
-            </p>
-            <p class="control">
-                <input class="input" type="text" id="keyword" name="keyword" placeholder="검색어를 입력하세요" value="${keyword }" style="    position: relative;
-    width: 600px;
-    padding-right: 60px;
-    background: #fff;
-    border: #ddd 1px solid;">
-            </p>
-            <p class="control">
-                <input type="submit" class="button is-mainColor" value="검색" />
-            </p>
-        </form>
+                </p>
+                <p class="control">
+                    <input class="input" type="text" id="keyword" name="keyword" placeholder="검색어를 입력하세요" value="${keyword }">
+                </p>
+                <p class="control">
+                    <input type="submit" class="button" value="검색" />
+                </p>
+            </form>
+        </div>
+        <div class="column is-2 is-offset-6 has-text-centered">
+            <c:if test= "${sid.equals('admin')}">
+                <a class="button is-link is-medium" href="${path1 }/file/fileupload1.do">등록하기</a>
+            </c:if>
+        </div>
     </div>
     <br>
     <div class="box_wrap">
@@ -200,18 +221,19 @@
                 <tr>
                     <td class="item1">${board.fileBoard.postNo}</td>
                     <td class="item2">
-                        <a href="${path1}/file/getFileboard.do?postNo=${board.fileBoard.postNo}" class="al">${board.fileBoard.title}</a>
+                        <c:if test="${empty sid }">
+                            <p class="al">${board.fileBoard.title}</p>
+                        </c:if>
+                        <c:if test="${!empty sid || sid.equals('admin') }">
+                            <a href="${path1}/file/getFileboard.do?postNo=${board.fileBoard.postNo}" class="al">${board.fileBoard.title}</a>
+                        </c:if>
                     </td>
                     <td class="item3">${board.fileBoard.regdate}</td>
                 </tr>
             </c:forEach>
+
             </tbody>
         </table>
-        <c:if test="${sid.equals('admin')}">
-            <div class="button-group">
-                <a class="button2" href="${path1}/file/fileupload1.do">파일 자료 등록</a>
-            </div>
-        </c:if>
     </div>
 </div>
 <br>
@@ -242,14 +264,6 @@
     </ul>
 </nav>
 </div>
-<script>
-    function checkLogin() {
-        var confirmLogin = confirm("글 작성은 로그인이 필요해요! 로그인하시겠어요?");
-        if (confirmLogin) {
-            location.href = '${path1 }/user/loginForm';
-        }
-    }
-</script>
 <!-- Content Close -->
 
 <!-- Footer Start -->

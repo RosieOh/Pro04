@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fileboard"> <!-- 수정된 부분 -->
-    <!-- 파일 목록 -->
+
     <select id="fileList" resultType="kr.ed.haebeop.domain.FileDTO">
         select * from fileobj order by uploaddate desc, no asc
+    </select>
+    <!-- 파일 목록 -->
+    <select id="fileboardList" resultType="kr.ed.haebeop.domain.FileBoard">
+        <![CDATA[
+    select * from fileboard
+    ]]>
+        <where>
+            <if test="searchType != null">
+                <choose>
+                    <when test="searchType == 'title'.toString()">
+                        title LIKE concat('%', #{searchKeyword}, '%')
+                    </when>
+                </choose>
+            </if>
+        </where>
+        <![CDATA[
+    order by regdate desc LIMIT #{postStart}, #{postCount}
+    ]]>
     </select>
     <!-- 파일 목록 -->
     <select id="fileGroupList" resultType="kr.ed.haebeop.domain.FileDTO">
@@ -29,10 +47,6 @@
     <delete id="fileObjDelete">
         delete from fileobj where no=#{no}
     </delete>
-    <!-- 파일 자료실 목록 -->
-    <select id="fileboardList" resultType="kr.ed.haebeop.domain.FileBoard">
-        select * from fileboard order by postno desc
-    </select>
     <!-- 파일 자료 상세보기 -->
     <select id="fileboardDetail" resultType="kr.ed.haebeop.domain.FileBoard">
         select * from fileboard where postno=#{postNo}
@@ -49,9 +63,18 @@
     <update id="fileboardEdit">
         update fileboard set title=#{title}, content=#{content} where postno=#{postNo}
     </update>
+
+    <insert id="fileUpdate">
+        <choose>
+            <when test="originFile != null and originFile.trim() != ''">
+                insert into fileobj values (default, #{postNo}, #{saveFolder}, #{originFile}, #{saveFile}, #{fileSize}, #{uploadDate})
+            </when>
+        </choose>
+    </insert>
+
     <!-- 파일 자료 삭제 -->
     <delete id="fileboardDelete">
-        delete from fileboard where postno=#{postNo}
+        delete from fileboard where postno=#{postno}
     </delete>
     <!-- 파일 자료 상세보기시 읽은 횟수 증가 -->
     <update id="countUp">
@@ -107,8 +130,4 @@
         ORDER BY regdate DESC LIMIT ((#{pageNum} - 1) * #{amount}), #{amount}
         ]]>
     </select>
-
-
 </mapper>
-
-

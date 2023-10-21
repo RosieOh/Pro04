@@ -4,67 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri = "http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path1" value="${pageContext.servletContext.contextPath }" />
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>해법학원</title>
-    <style>
-        .gotop {
-            position: fixed;
-            bottom: 50px;
-            right: 50px;
-            width: 40px;
-            height: 40px;
-            background: url(/pub/images/arrow_top.svg) #76CA9E no-repeat 50% 50%;
-            border-radius: 50%;
-            font-size: 0;
-            z-index: 10;
-        }
-    </style>
-    <link rel="stylesheet" href="${path1}/resources/css/common.css">
-    <jsp:include page="./include/head.jsp" />
-</head>
-<body>
-<!-- Header Start -->
-<jsp:include page="./include/header.jsp" />
-<!-- Header Close -->
-
-<a href="javascript:void(0);" class="gotop" style="cursor: pointer;">맨위로</a>
-<script>
-    // gotop
-    $(".gotop").css("cursor", "pointer").click(function(){
-        $('body, html').animate({scrollTop:0}, 500);
-    });
-</script>
-<%--<jsp:include page="./include/snsQuick.jsp"/>--%>
-<!-- Slider Start -->
-<section class="slider">
-    <div class="container">
-        <div class="columns is-justify-content-center">
-            <div class="column is-9-desktop is-10-tablet">
-                <div class="block has-text-centered">
-                    <span class="is-block mb-4 text-white is-capitalized">Small help can make change</span>
-                    <h1 class="mb-5">New hope for <br>near future</h1>
-                    <p class="mb-6">Your small contribution means a lot. Natus officia amet <br>accusamus repellat magni reprehenderit dolorem.</p>
-                    <a href="#" target="_blank" class="btn btn-main is-rounded">Donate Now</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section>
-    <div class="container">
-        <div class="column">
-            <div class="column lg-12">
-                <div class="section-divider"></div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <section class="section latest-blog">
     <div class="container">
@@ -183,11 +122,5 @@
                 </a>
             </div>
         </div>
-
+    </div>
 </section>
-
-<!-- Footer Start -->
-<jsp:include page="./include/footer.jsp" />
-<!-- Footer Close -->
-</body>
-</html>

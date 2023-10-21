@@ -22,24 +22,12 @@
     <!-- Bulma Version 0.9.0-->
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.4/css/bulma.min.css" />
     <link rel="stylesheet" type="text/css" href="${path1 }/resources/css/admin.css">
-
     <style>
-
         @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
-
-        *{
-            font-family: 'Nanum Gothic Coding', monospace;
-        }
-
+        *{font-family: 'Nanum Gothic Coding', monospace;}
         .card-header { color:#00A2FF; font-size: 1.2em; margin: 0 auto; }
         .container { margin-top: 20px; }
-
-        .title, .hero, .hero, .welcome, .subtitle{
-            font-family: 'Nanum Gothic Coding', monospace;
-            font-weight: 700;
-        }
-
-
+        .title, .hero, .hero, .welcome, .subtitle{font-family: 'Nanum Gothic Coding', monospace;font-weight: 700;}
     </style>
 </head>
 <body>

@@ -21,10 +21,6 @@
 </head>
 <body>
 
-<!-- Header Start -->
-<jsp:include page="./include/header.jsp" />
-<!-- Header Close -->
-
 <%--메인 페이지 이미지 애니메이션--%>
 <div class="img aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000" style="padding-top: 300px;">
     <img src="${path1}/resources/images/img_mc03_01.png" alt="icon" class="i1">

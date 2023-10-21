@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,11 +32,10 @@ public class FileRepositoryImpl implements FileRepository {
         }
     }
 
-    //파일 자료 목록 불러오기
     @Override
-    public List<FileVO> getFileList() throws Exception {
+    public List<FileVO> getFileList(Page page) throws Exception {
         List<FileVO> fileboardList = new ArrayList<>();
-        List<FileBoard> boardList = sqlSession.selectList("fileboard.fileboardList");
+        List<FileBoard> boardList = sqlSession.selectList("fileboard.fileboardList",page);
         for(int i=0;i<boardList.size();i++) {
             FileBoard board = boardList.get(i);
             List<FileDTO> fileList = sqlSession.selectList("fileboard.fileList", board.getPostNo());
@@ -78,6 +78,41 @@ public class FileRepositoryImpl implements FileRepository {
         sqlSession.delete("fileboard.fileboardDelete", postNo);
         sqlSession.delete("fileboard.fileDelete", postNo);
     }
+
+    //    @Transactional
+//    @Override
+//    public void editFileboard(FileVO fileboard) throws Exception {
+//        // 파일 게시물의 정보를 수정하기 위해 FileVO 객체를 사용
+//        FileBoard board = fileboard.getFileBoard();
+//
+//        // 파일 게시물 정보를 업데이트
+//        sqlSession.update("fileboard.editFileboard", board);
+//
+//        // 파일 정보가 변경된 경우, 기존 파일 삭제 및 새 파일 업로드 처리
+//        List<FileDTO> fileList = fileboard.getFileList();
+//        if (fileList != null && !fileList.isEmpty()) {
+//            int postNo = board.getPostNo();
+//
+//            // 기존 파일 삭제
+//            sqlSession.delete("fileboard.fileDelete", postNo);
+//
+//            // 새 파일 업로드
+//            for (FileDTO file : fileList) {
+//                file.setPostNo(postNo);
+//                sqlSession.insert("fileboard.fileInsert", file);
+//            }
+//        }
+//    }
+    @Override
+    public void editFileboard(FileVO fileboard) throws Exception {
+        FileBoard board = fileboard.getFileBoard();
+        List<FileDTO> fileList = fileboard.getFileList();
+        sqlSession.update("fileboard.fileboardEdit", board);
+        for(FileDTO file:fileList) {
+            sqlSession.update("fileboard.fileUpdate", file);
+        }
+    }
+
 
     @Override
     public void fileRemove(int no) throws Exception {
