@@ -17,6 +17,14 @@
 <!-- Header Start -->
 <jsp:include page="../include/header.jsp" />
 <!-- Header Close -->
+<nav class="breadcrumb has-succeeds-separator is-medium is-right mt-3 p-4" style="background: #f1f4f9" aria-label="breadcrumbs">
+    <ul class="mr-5">
+        <li><a href="${path1}"><i class="xi-home is-size-3"></i></a></li>
+        <li><a>교육 뉴스</a></li>
+        <li><a href="${path1}/file/list.do">뉴스</a></li>
+    </ul>
+    <p class="title has-text-centered mt-1 mb-2">뉴스 상세 보기</p>
+</nav>
 
 <div class="container">
     <article class="media">

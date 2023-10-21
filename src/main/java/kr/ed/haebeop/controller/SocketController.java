@@ -11,6 +11,8 @@ import javax.websocket.Session;
 import javax.websocket.RemoteEndpoint.Basic;
 import javax.websocket.server.ServerEndpoint;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,14 +46,14 @@ public class SocketController {
     // ws:htt[l
     @OnMessage
     public void onMessage (String message, Session session) {
-        /*
         try {
             //메세지 보낸 사람에게 표시됨
             final Basic basic = session.getBasicRemote();
             basic.sendText(session.getId()+"메시지 전송 성공~!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        } */
+        }
+
         // 다른 사람에게 메세지 보내기
         sendAllSessionToMessage(session,session.getId()+" : "+message);
     }

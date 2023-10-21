@@ -18,6 +18,25 @@
     <link rel="stylesheet" href="${path1}/resources/aos/aos.css">
     <link rel="stylesheet" href="${path1}/resources/css/main.css">
     <%-- 필요 디자인 요소 취합 항목 끝--%>
+
+<%--    <!-- 검색 창을 추가 -->--%>
+<%--    <input type="text" id="searchInput" placeholder="사이트 내 검색">--%>
+<%--    <button onclick="performSearch()">검색</button>--%>
+
+<%--    <script>--%>
+<%--        function performSearch() {--%>
+<%--            // 검색어를 가져오기--%>
+<%--            const searchInput = document.getElementById("searchInput");--%>
+<%--            const searchTerm = searchInput.value;--%>
+
+<%--            // 검색어가 비어 있지 않으면 검색 수행--%>
+<%--            if (searchTerm) {--%>
+<%--                // 여기에서 검색 로직을 작성하고 검색 결과를 처리합니다.--%>
+<%--                // 예를 들어, 검색 결과를 다른 페이지로 리디렉션하거나 동적으로 표시할 수 있습니다.--%>
+<%--                // 검색 결과가 페이지 내의 특정 요소에 나타날 경우 해당 요소를 업데이트할 수도 있습니다.--%>
+<%--            }--%>
+<%--        }--%>
+<%--    </script>--%>
 </head>
 <body>
 

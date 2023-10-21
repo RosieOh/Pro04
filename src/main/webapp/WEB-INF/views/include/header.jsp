@@ -17,9 +17,6 @@
           </div>
           <div class="column is-6-desktop is-8-tablet">
             <div class="header-top-right has-text-right-tablet has-text-centered-mobile">
-              <%--<a href="https://www.facebook.com/themefisher" target="_blank"><i class="icofont-facebook"></i></a>
-              <a href="https://github.com/themefisher/" target="_blank"><i class="icofont-github"></i></a>
-              <a href="#" target="_blank"><i class="icofont-linkedin"></i></a>--%>
               <c:if test="${sid.equals('admin')}">
                 <a href="${path1}/admin/">
                   <i class="icofont-login has-text-white" style="color: red; font-weight: bold;"> 관리자페이지</i>
@@ -75,13 +72,14 @@
               <div class="navbar-dropdown">
                 <a class="navbar-item" href="${path1}/course/list.do">수강신청</a>
                 <a class="navbar-item" href="${path1}/course/schedule.do">개강일정</a>
+                <a class="navbar-link" href="${path1}/video/list.do" style="height:47.9px;">시범강의</a>
               </div>
             </li>
 
             <li class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link">시범강의</a>
+              <a class="navbar-link">학부모를 위한 공간</a>
               <div class="navbar-dropdown">
-                <a class="navbar-link" href="${path1}/video/list.do" style="height:47.9px;">시범강의</a>
+                <a class="navbar-link" href="${path1}/news/list.do" style="height:47.9px;">교육 뉴스</a>
               </div>
             </li>
 
