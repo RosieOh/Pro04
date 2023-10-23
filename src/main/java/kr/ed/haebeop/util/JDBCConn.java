@@ -6,7 +6,7 @@ public class JDBCConn {
     final String DRIVER = "org.mariadb.jdbc.Driver"; //클래스이름
     final String DNS = "localhost";
     final String PORT = "3306";
-    final String NAME = "haebeop";
+    final String NAME = "haebeop_1";
     final String USER = "root";
     final String PASS = "1234";
     final String URL = "jdbc:mariadb://"+DNS+":"+PORT+"/"+NAME;

@@ -1,6 +1,6 @@
-CREATE DATABASE haebeop;
+CREATE DATABASE haebeop_1;
 
-USE haebeop;
+USE haebeop_1;
 
 CREATE TABLE test(num INT AUTO_INCREMENT PRIMARY KEY,
                   title VARCHAR(100) NOT NULL);
