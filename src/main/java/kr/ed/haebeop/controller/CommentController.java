@@ -13,8 +13,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Controller // 이 클래스는 스프링에서 컨트롤러로 사용되며, 요청을 처리하는 역할을 합니다.
-@RequestMapping("/comment/") // 이 컨트롤러에서 처리할 요청 URL의 기본 경로를 지정합니다.
+@Controller
+@RequestMapping("/comment/")
 
 public class CommentController {
 

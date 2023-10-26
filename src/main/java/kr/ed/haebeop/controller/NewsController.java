@@ -12,57 +12,58 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/news/*")
 public class NewsController {
 
-    private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+    private static final Logger logger = LoggerFactory.getLogger(NewsController.class);
     public static HashMap<String, String> map;
 
     @RequestMapping(value = "list.do", method = RequestMethod.GET)
-
     public String startCrawl(Model model) throws IOException {
-        logger.info("뉴스 페이지 진입");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd", Locale.KOREA);
+        Date currentTime = new Date();
+
+        String d_Time = simpleDateFormat.format(currentTime);
+        String e_date = d_Time;
+
+        currentTime.setDate(currentTime.getDate() - 1);
+        String s_date = simpleDateFormat.format(currentTime);
+        String query = "성북구";
+        String s_from = s_date.replace(".", "");
+        String e_to = e_date.replace(".", "");
         int page = 1;
         ArrayList<String> al1 = new ArrayList<>();
         ArrayList<String> al2 = new ArrayList<>();
-        ArrayList<String> al3 = new ArrayList<>();
-        ArrayList<String> al4 = new ArrayList<>();
-        ArrayList<String> al5 = new ArrayList<>();
 
         while (page < 20) {
-            String address = "https://www.hangyo.com/news/section_list_all.html?sec_no=1648&page=" + Integer.toString(page); //크롤링하고 싶은 페이지
+            String address = "https://search.naver.com/search.naver?where=news&query=" + query +  "&sort=1&ds=" + s_date
+                    + "&de=" + e_date + "&nso=so%3Ar%2Cp%3Afrom" + s_from + "to" + e_to + "%2Ca%3Astart="
+                    + Integer.toString(page);
             Document rawData = Jsoup.connect(address).timeout(5000).get();
-
-            Elements newsItems = rawData.select("li"); //li태그 안에 있는 요소를 크롤링
+            System.out.println(address);
+            Elements blogOption = rawData.select("dl dt");
             String realURL = "";
             String realTitle = "";
-            String realContent = "";
-            String realregdate = "";
-            String img = "";
-            for (Element option : newsItems) {
-                realURL = "https://www.hangyo.com" + option.select("a").attr("href"); //a태그
-                realTitle = option.select("h2").text();//h2태그
-                realContent = option.select("p").text();//p태그
-                realregdate = option.select("em").text();//em태그 안의 요소를 크롤링한다
-                img = option.select("img").attr("src");
+
+            for (Element option : blogOption) {
+                realURL = option.select("a").attr("href");
+                realTitle = option.select("a").attr("href");
+                System.out.println(realTitle);
                 al1.add(realURL);
                 al2.add(realTitle);
-                al3.add(realContent);
-                al4.add(realregdate);
-                al5.add(img);
             }
             page += 10;
         }
         model.addAttribute("urls", al1);
         model.addAttribute("titles", al2);
-        model.addAttribute("contents", al3);
-        model.addAttribute("regdates", al4);
-        model.addAttribute("img",al5);
 
-        return "/news/newsList";
+        return "news/newsList";
     }
 }

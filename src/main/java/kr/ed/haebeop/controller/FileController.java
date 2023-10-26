@@ -61,12 +61,7 @@ public class FileController {
         FileBoard board = new FileBoard();
         board.setTitle((String) map.get("title"));
         board.setContent((String) map.get("content"));
-
-        //uploadPath; //dispatcher-servlet에서 지정한 경로
-        //req.getContextPath(); //현재 프로젝트 홈 경로 - /pro3_war
-        //req.getServletPath();   //요청된 URL - /pro3_war/file/fileupload1.do
-        //req.getRealPath("/resources/upload")  //현재 프로젝트에 저장될 실제 경로
-        String devFolder = uploadPath + "/resources/upload";    //개발자용 컴퓨터에 업로드 디렉토리 지정
+        String devFolder = uploadPath + "/resources/upload";
         String uploadFolder = req.getRealPath("/resources/upload");
         log.info("-----------------------------------");
         log.info(" 현재 프로젝트 홈 : "+req.getContextPath());
@@ -298,7 +293,7 @@ public class FileController {
 
             String callback = request.getParameter("CKEditorFuncNum");
             printWriter = response.getWriter();
-            String fileUrl = "/team24_war/notice/ckImgSubmit.do?uid=" + uid + "&fileName=" + fileName; // 작성화면
+            String fileUrl = "/pro04_1/file/ckImgSubmit.do?uid=" + uid + "&fileName=" + fileName; // 작성화면
 
             // 업로드시 메시지 출력
             printWriter.println("{\"filename\" : \"" + fileName + "\", \"uploaded\" : 1, \"url\":\"" + fileUrl + "\"}");

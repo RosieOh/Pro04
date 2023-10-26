@@ -5,14 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-/**
- * 메세지 소스 설정
- */
 @Configuration
 public class ContextMessage {
-    /**
-     * 메세지 소스를 생성한다.
-     */
     @Bean
     public ReloadableResourceBundleMessageSource messageSource() {
         ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();

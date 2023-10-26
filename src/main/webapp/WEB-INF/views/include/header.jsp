@@ -46,7 +46,6 @@
               <a href="${path1 }/contact">
                 <i class="icofont-google-map has-text-white"> 오시는길</i>
               </a>
-              <%--<a href="donation.html" class="top-btn">Donate Now</a>--%>
             </div>
           </div>
         </div>
@@ -95,7 +94,7 @@
             <li class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">자료실</a>
               <div class="navbar-dropdown">
-                <a class="navbar-link" href="${path1}/file/filelist1.do" style="height:47.9px;">자료실</a>
+                <a class="navbar-link" href="${path1}/file/list.do" style="height:47.9px;">자료실</a>
               </div>
             </li>
           </ul>

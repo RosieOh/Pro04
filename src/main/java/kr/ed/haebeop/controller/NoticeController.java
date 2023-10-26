@@ -1,10 +1,7 @@
 package kr.ed.haebeop.controller;
 
-import kr.ed.haebeop.domain.Board;
 import kr.ed.haebeop.domain.Notice;
-import kr.ed.haebeop.domain.Qna;
-import kr.ed.haebeop.service.BoardService;
-import kr.ed.haebeop.service.QnaService;
+import kr.ed.haebeop.service.NoticeService;
 import kr.ed.haebeop.util.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,16 +21,15 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/qna/*")
-public class QnaController {
-    private static final Logger logger = LoggerFactory.getLogger(QnaController.class);
+@RequestMapping("/notice/*")
+public class NoticeController {
+    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     @Autowired
-    private QnaService qnaService;
+    private NoticeService noticeService;
 
     @GetMapping("list.do")
-    public String getQnaList(HttpServletRequest request, Model model) throws Exception {
-        logger.info("게시판 페이지 진입");
+    public String getNoticeList(HttpServletRequest request, Model model) throws Exception {
         String type = request.getParameter("type");
         String keyword = request.getParameter("keyword");
         int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
@@ -41,66 +37,64 @@ public class QnaController {
         Page page = new Page();
         page.setSearchType(type);
         page.setSearchKeyword(keyword);
-        int total = qnaService.totalCount(page);
-
-        page.makeBlock(curPage, total);
-        page.makeLastPageNum(total);
-        page.makePostStart(curPage, total);
+        int total = noticeService.totalCount(page);
 
         model.addAttribute("type", type);
         model.addAttribute("keyword", keyword);
         model.addAttribute("page", page);
+        model.addAttribute("curPage", curPage);
 
-        List<Qna> qnaList = qnaService.QnaList(new Page());
-        model.addAttribute("qnaList", qnaList);
-        return "/qna/qnaList";
+        List<Notice> noticeList = noticeService.noticeList(page);
+        model.addAttribute("noticeList", noticeList);
+
+        return "/notice/noticeList";
     }
 
     @GetMapping("detail.do")
-    public String getQnaDetail(HttpServletRequest request, Model model) throws Exception {
-        int qno = Integer.parseInt(request.getParameter("qno"));
-        Qna domain = qnaService.qnaDetail(qno);
-        model.addAttribute("domain", domain);
-        return "/qna/qnaDetail";
+    public String getNoticeDetail(HttpServletRequest request, Model model) throws Exception {
+        int nno = Integer.parseInt(request.getParameter("nno"));
+        Notice notice = noticeService.noticeDetail(nno);
+        model.addAttribute("notice", notice);
+        return "/notice/noticeDetail";
     }
 
     @GetMapping("insert.do")
-    public String insertForm(HttpServletRequest request, Model model) throws Exception {
-        return "/qna/qnaInsert";
+    public String insertNotice(HttpServletRequest request, Model model) throws Exception {
+        return "/notice/noticeInsert";
     }
 
     @PostMapping("insert.do")
-    public String qnaInsert(HttpServletRequest request, Model model) throws Exception {
-        Qna domain = new Qna();
-        domain.setTitle(request.getParameter("title"));
-        domain.setContent(request.getParameter("content"));
-        qnaService.qnaInsert(domain);
+    public String noticeInsert(HttpServletRequest request, Model model) throws Exception {
+        Notice notice = new Notice();
+        notice.setTitle(request.getParameter("title"));
+        notice.setContent(request.getParameter("content"));
+        noticeService.noticeInsert(notice);
         return "redirect:list.do";
     }
 
     @GetMapping("delete.do")
-    public String qnaDelete(HttpServletRequest request, Model model) throws Exception {
-        int qno = Integer.parseInt(request.getParameter("qno"));
-        qnaService.qnaDelete(qno);
+    public String noticeDelete(HttpServletRequest request, Model model) throws Exception {
+        int nno = Integer.parseInt(request.getParameter("nno"));
+        noticeService.noticeDelete(nno);
         return "redirect:list.do";
     }
 
     @GetMapping("edit.do")
     public String editForm(HttpServletRequest request, Model model) throws Exception {
-        int qno = Integer.parseInt(request.getParameter("qno"));
-        Qna domain = qnaService.qnaDetail(qno);
-        model.addAttribute("domain", domain);
-        return "/qna/qnaEdit";
+        int nno = Integer.parseInt(request.getParameter("nno"));
+        Notice notice = noticeService.noticeDetail(nno);
+        model.addAttribute("notice", notice);
+        return "/notice/noticeEdit";
     }
 
     @PostMapping("edit.do")
-    public String qnaEdit(HttpServletRequest request, Model model) throws Exception {
-        int qno = Integer.parseInt(request.getParameter("qno"));
-        Qna domain = new Qna();
-        domain.setQno(qno);
-        domain.setTitle(request.getParameter("title"));
-        domain.setContent(request.getParameter("content"));
-        qnaService.qnaDetail(qno);
+    public String noticeEdit(HttpServletRequest request, Model model) throws Exception {
+        int nno = Integer.parseInt(request.getParameter("nno"));
+        Notice notice = new Notice();
+        notice.setNno(nno);
+        notice.setTitle(request.getParameter("title"));
+        notice.setContent(request.getParameter("content"));
+        noticeService.noticeEdit(notice);
         return "redirect:list.do";
     }
 
@@ -144,7 +138,7 @@ public class QnaController {
 
             String callback = request.getParameter("CKEditorFuncNum");
             printWriter = response.getWriter();
-            String fileUrl = "/pro04_1/qna/ckImgSubmit.do?uid=" + uid + "&fileName=" + fileName; // 작성화면
+            String fileUrl = "/pro04_1/notice/ckImgSubmit.do?uid=" + uid + "&fileName=" + fileName; // 작성화면
 
             // 업로드시 메시지 출력
             printWriter.println("{\"filename\" : \"" + fileName + "\", \"uploaded\" : 1, \"url\":\"" + fileUrl + "\"}");

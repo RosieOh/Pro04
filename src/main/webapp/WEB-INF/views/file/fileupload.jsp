@@ -55,7 +55,7 @@
                 <div class="control">
                     <label for="file2" class="file-label">
                         <span style="padding: 5px; margin: 5px">파일2 : </span>
-                        <input type="file" name="file2" id="file2" class="file-input" required>
+                        <input type="file" name="file2" id="file2" class="file-input">
                         <span class="file-cta">
                             <span class="file-icon">
                                 <i class="fas fa-upload"></i>
@@ -69,7 +69,7 @@
                 <div class="control">
                     <label for="file3" class="file-label">
                         <span style="padding: 5px; margin: 5px">파일3 : </span>
-                        <input type="file" name="file3" id="file3" class="file-input" required>
+                        <input type="file" name="file3" id="file3" class="file-input">
                         <span class="file-cta">
                             <span class="file-icon">
                                 <i class="fas fa-upload"></i>

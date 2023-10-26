@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FileBoard {
+    private String id;
     private int postNo;
     private String title;
     private String content;
