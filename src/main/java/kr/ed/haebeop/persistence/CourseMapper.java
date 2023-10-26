@@ -25,17 +25,11 @@ public interface CourseMapper {
     public void deleteCourse(int cno);
 
     public int countCourse(Page page);
-
     public void insertEnroll(Enroll enroll);
-
     public void updateStudentNum(int cno);
-
     public List<Enroll> getEnrollList(Enroll enroll);
-
     public void complete(int eno);
-
     public Member getMemberName(String id);
-
     public Enroll isEnroll(Enroll enroll);
     public List<Enroll> enrollList(Page page);
     public void enrollDelete(int eno);

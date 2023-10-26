@@ -68,7 +68,6 @@ public class FreeController {
         model.addAttribute("freeBestList", freeBestList);
         List<Free> freeBestCommentList = freeService.freeBestCommentList();
         model.addAttribute("freeBestCommentList", freeBestCommentList);
-        //System.out.println("최다 댓글 리스트 : " + freeBestCmtList);
         for (Free fr : freeBestCommentList) {
             fr.setCount(commentMap.get(fr.getFno()));
         }
@@ -84,17 +83,13 @@ public class FreeController {
     public String getfreeDetail(HttpServletRequest request, Model model) throws Exception {
         int fno = Integer.parseInt(request.getParameter("fno"));
         String id = (String) session.getAttribute("sid");
-
         Free free = freeService.freeDetail(fno);
         Record record = freeService.findRecord(fno, id);
         Member member = memberService.getMember(id);
-
         model.addAttribute("free", free);
         model.addAttribute("record", record);
         model.addAttribute("member", member);
-
         List<FreeComment> commentList = freeService.freeCommentList(fno);
-
         model.addAttribute("commentList", commentList);
         return "/free/freeDetail";
     }
@@ -181,7 +176,6 @@ public class FreeController {
             byte[] bytes = upload.getBytes();
 
             //이미지 경로 생성
-            //String path = "C:\\hansun\\springframework\\pro31\\src\\main\\webapp\\resources\\upload" + "ckImage/";    // 이미지 경로 설정(폴더 자동 생성)
             String path = request.getRealPath("/resource/uploadckImage/");
             String ckUploadPath = path + uid + "_" + fileName;
             File folder = new File(path);
@@ -197,7 +191,7 @@ public class FreeController {
 
             out = new FileOutputStream(new File(ckUploadPath));
             out.write(bytes);
-            out.flush(); // outputStram에 저장된 데이터를 전송하고 초기화
+            out.flush();
 
             String callback = request.getParameter("CKEditorFuncNum");
             printWriter = response.getWriter();
@@ -231,15 +225,12 @@ public class FreeController {
             , HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //서버에 저장된 이미지 경로
-        //String path = "C:\\hansun\\springframework\\pro31\\src\\main\\webapp\\resources\\upload" + "ckImage/";    // 저장된 이미지 경로
         String path = request.getRealPath("/resource/uploadckImage/");
         System.out.println("path:" + path);
         String sDirPath = path + uid + "_" + fileName;
 
         File imgFile = new File(sDirPath);
 
-        //사진 이미지 찾지 못하는 경우 예외처리로 빈 이미지 파일을 설정한다.
         if (imgFile.isFile()) {
             byte[] buf = new byte[1024];
             int readByte = 0;

@@ -3,12 +3,14 @@ package kr.ed.haebeop.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Course {
-    private int cno;
+@ToString
+public class Lecture {
+    private int lno;
     private String cname;
     private int price;
     private String sdate;       // start

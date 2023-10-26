@@ -124,7 +124,6 @@ public class BoardController {
             byte[] bytes = upload.getBytes();
 
             //이미지 경로 생성
-            //String path = "C:\\hansun\\springframework\\pro31\\src\\main\\webapp\\resources\\upload" + "ckImage/";    // 이미지 경로 설정(폴더 자동 생성)
             String path = request.getRealPath("/resource/uploadckImage/");
             String ckUploadPath = path + uid + "_" + fileName;
             File folder = new File(path);

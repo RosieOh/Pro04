@@ -4,66 +4,85 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
 
 @Controller
 @RequestMapping("/news/*")
 public class NewsController {
 
-    private static final Logger logger = LoggerFactory.getLogger(NewsController.class);
-    public static HashMap<String, String> map;
+    @GetMapping("list.do")
+    public String Crawling(Model model) throws IOException {
+        return "/news/newsList";
+    }
 
-    @RequestMapping(value = "list.do", method = RequestMethod.GET)
-    public String startCrawl(Model model) throws IOException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd", Locale.KOREA);
-        Date currentTime = new Date();
+    @PostMapping("list.do")
+    public String Crawling(HttpServletRequest request, Model model) {
+        ArrayList<String> titleList = new ArrayList<>(); // 제목
+        ArrayList<String> hrefList = new ArrayList<>(); // 상세 링크
+        ArrayList<String> companyList = new ArrayList<>(); // 언론사
+        ArrayList<String> textList = new ArrayList<>(); // 내용
 
-        String d_Time = simpleDateFormat.format(currentTime);
-        String e_date = d_Time;
+        String search = request.getParameter("search");
 
-        currentTime.setDate(currentTime.getDate() - 1);
-        String s_date = simpleDateFormat.format(currentTime);
-        String query = "성북구";
-        String s_from = s_date.replace(".", "");
-        String e_to = e_date.replace(".", "");
-        int page = 1;
-        ArrayList<String> al1 = new ArrayList<>();
-        ArrayList<String> al2 = new ArrayList<>();
+        try {
+            String url = "https://search.naver.com/search.naver?sm=tab_hty.top&where=news&query="+search;
+            Document document = Jsoup.connect(url).get();
+            Elements bxElements = document.select(".bx");
 
-        while (page < 20) {
-            String address = "https://search.naver.com/search.naver?where=news&query=" + query +  "&sort=1&ds=" + s_date
-                    + "&de=" + e_date + "&nso=so%3Ar%2Cp%3Afrom" + s_from + "to" + e_to + "%2Ca%3Astart="
-                    + Integer.toString(page);
-            Document rawData = Jsoup.connect(address).timeout(5000).get();
-            System.out.println(address);
-            Elements blogOption = rawData.select("dl dt");
-            String realURL = "";
-            String realTitle = "";
+            // .bx 요소 순회
+            for (Element bxElement : bxElements) {
+                // .news_tit 요소 추출
+                Element newsTitElement = bxElement.selectFirst(".news_tit");
+                if (newsTitElement != null) {
+                    // 텍스트 출력
+                    String title = newsTitElement.text();
+                    System.out.println("News Title: " + title);
+                    titleList.add(title);
 
-            for (Element option : blogOption) {
-                realURL = option.select("a").attr("href");
-                realTitle = option.select("a").attr("href");
-                System.out.println(realTitle);
-                al1.add(realURL);
-                al2.add(realTitle);
+                    // <a> 태그 추출
+                    Element aTagElement = newsTitElement.selectFirst("a");
+                    if (aTagElement != null) {
+                        // href 속성값 출력
+                        String hrefValue = aTagElement.attr("href");
+                        System.out.println("Href Value: " + hrefValue);
+                        hrefList.add(hrefValue);
+                    }
+                }
+
+                // .info.press 추출
+                Element infoPressElement = bxElement.selectFirst(".info.press");
+                if (infoPressElement != null) {
+                    String company =  infoPressElement.text();
+                    System.out.println("Info Press: " + company);
+                    companyList.add(company);
+                }
+
+                // .api_txt_lines 추출
+                Element apiTxtLinesElement = bxElement.selectFirst(".api_txt_lines");
+                if (apiTxtLinesElement != null) {
+                    String text = apiTxtLinesElement.text();
+                    System.out.println("API Text Lines: " + text);
+                    textList.add(text);
+                }
+                // 각 .bx 요소 사이에 구분선 추가
+                System.out.println("----------------------------------");
             }
-            page += 10;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        model.addAttribute("urls", al1);
-        model.addAttribute("titles", al2);
-
-        return "news/newsList";
+        model.addAttribute("newsName", search);
+        model.addAttribute("titleList", titleList);
+        model.addAttribute("urlList", hrefList);
+        model.addAttribute("companyList", companyList);
+        model.addAttribute("textList", textList);
+        return "/news/newsList";
     }
 }

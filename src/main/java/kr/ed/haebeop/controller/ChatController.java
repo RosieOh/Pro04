@@ -11,18 +11,16 @@ import javax.websocket.Session;
 import javax.websocket.RemoteEndpoint.Basic;
 import javax.websocket.server.ServerEndpoint;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @ServerEndpoint(value = "/socket")
-public class SocketController {
+public class ChatController {
     private static final List<Session> sessionList = new ArrayList<Session>();
 
-    public SocketController(){
+    public ChatController(){
         System.out.println("create socket");
     }
 
@@ -72,7 +70,7 @@ public class SocketController {
 
     private void sendAllSessionToMessage(Session self, String msg){ // 연결된 모든 사용자에게 메세지 전달
         try {
-            for(Session s : SocketController.sessionList){
+            for(Session s : ChatController.sessionList){
                 //if(!self.getId().equals(s.getId())){
                 s.getBasicRemote().sendText(msg);
                 //}
