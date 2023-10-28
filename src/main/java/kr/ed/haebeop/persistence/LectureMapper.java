@@ -10,14 +10,18 @@ import java.util.List;
 
 @Mapper
 public interface LectureMapper {
-    public List<Lecture> getLectureList(Page page) throws Exception;
-    public List<Lecture> lectureList() throws Exception;
-    public Lecture getLecture(int lno) throws Exception;
-    public List<Lecture> getNewLecture() throws Exception;
-    public void insertLecture(Lecture lecture) throws Exception;
-    public void updateLecture(Lecture lecture) throws Exception;
-    public void deleteLecture(int lno) throws Exception;
-    public int countLecture(Page page) throws Exception;
+    public List<Lecture> getLectureList(Page page);
+    public List<Lecture> lectureList();
+    public List<Lecture> getUnFinishedLecture(Page page);
+    public List<Lecture> unFinishedLecture();
+    public List<Lecture> getNotFullLecture(Page page);
+    public List<Lecture> notFullLecture();
+    public Lecture getLecture(int lno);
+    public List<Lecture> getNewLecture();
+    public void insertLecture(Lecture lecture);
+    public void updateLecture(Lecture lecture);
+    public void deleteLecture(int lno);
+    public int countLecture(Page page);
     public List<Lecture> getLectureAsc(Page page);
     public List<Lecture> getLectureDesc(Page page);
 

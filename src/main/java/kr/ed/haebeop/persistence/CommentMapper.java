@@ -7,8 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface CommentMapper {
-    public List<Comment> commentList(int par) throws Exception;
-    public void commentInsert(Comment domain) throws Exception;
-    public void commentDelete(int cno) throws Exception;
+    public List<Comment> commentList(int par);
+    public void commentInsert(Comment domain);
+    public void commentDelete(int cno);
 
 }

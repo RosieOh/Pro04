@@ -23,6 +23,26 @@ public class LectureServiceImpl implements LectureService{
     }
 
     @Override
+    public List<Lecture> getUnFinishedLecture(Page page) {
+        return lectureMapper.getUnFinishedLecture(page);
+    }
+
+    @Override
+    public List<Lecture> unFinishedLecture() {
+        return lectureMapper.unFinishedLecture();
+    }
+
+    @Override
+    public List<Lecture> getNotFullLecture(Page page) {
+        return lectureMapper.getNotFullLecture(page);
+    }
+
+    @Override
+    public List<Lecture> notFullLecture() {
+        return lectureMapper.notFullLecture();
+    }
+
+    @Override
     public Lecture getLecture(int lno) throws Exception {
         return lectureMapper.getLecture(lno);
     }

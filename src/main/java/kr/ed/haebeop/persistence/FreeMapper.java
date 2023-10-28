@@ -2,6 +2,7 @@ package kr.ed.haebeop.persistence;
 
 import kr.ed.haebeop.domain.Free;
 import kr.ed.haebeop.domain.FreeComment;
+import kr.ed.haebeop.domain.Lecture;
 import kr.ed.haebeop.domain.Record;
 import kr.ed.haebeop.util.Page;
 import org.apache.ibatis.annotations.*;

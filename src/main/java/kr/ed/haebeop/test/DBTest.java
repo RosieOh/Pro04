@@ -1,3 +1,5 @@
+package kr.ed.haebeop.test;
+
 import kr.ed.haebeop.config.RootConfig;
 import lombok.extern.log4j.Log4j;
 import org.junit.jupiter.api.DisplayName;

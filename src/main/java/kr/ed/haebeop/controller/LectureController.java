@@ -21,10 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class LectureController {
@@ -78,7 +75,7 @@ public class LectureController {
         }
 
         model.addAttribute("lecutureList", lectureList);
-        model.addAttribute("lecuremapping", lectureMapping)
+        model.addAttribute("lecuremapping", lectureMapping);
         return "/lecture/lectureList";
     }
 
@@ -281,11 +278,93 @@ public class LectureController {
 
     @PostMapping("list.do")
     public String applyFilters(HttpServletRequest request, Model model) throws Exception {
+        // 요청 파라미터에서 강좌 필터링 옵션(excludeFull, excludeFinished)을 읽어옵니다.
         String excludeFullParameter = request.getParameter("excludeFull");
         String excludeFinishedParameter = request.getParameter("excludeFinished");
 
+        // 문자열로 전달된 필터링 옵션을 Boolean 값으로 변환합니다.
         Boolean excludeFull = Boolean.parseBoolean(excludeFullParameter);
         Boolean excludeFinished = Boolean.parseBoolean(excludeFinishedParameter);
-        
+
+        // 요청 파라미터에서 검색 조건(type), 검색어(keyword), 현재 페이지(curPage) 값을 읽어옵니다.
+        String type = request.getParameter("type");
+        String keyword = request.getParameter("keyword");
+        int curPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+
+        // Page 객체를 생성하여 검색 조건과 현재 페이지 정보를 설정합니다.
+        Page page = new Page();
+        page.setSearchType(type);
+        page.setSearchKeyword(keyword);
+
+        // 강좌 목록을 저장할 리스트를 초기화합니다.
+        List<Lecture> filterLectureList = new ArrayList<>();
+
+        if (excludeFull && excludeFinished) {
+            // '마감임박 + 수강 가능' 필터링을 선택한 경우
+
+            // 수강 가능한 강좌와 마감임박한 강좌를 따로 가져와서 교집합을 구합니다.
+            List<Lecture> tempList1 = lectureService.notFullLecture();
+            List<Lecture> tempList2 = lectureService.unFinishedLecture();
+            List<Lecture> intersection = new ArrayList<>(tempList1);
+            intersection.retainAll(tempList2);
+
+            int total = intersection.size();
+            page.makeBlock(curPage, total);
+            page.makeLastPageNum(total);
+            page.makePostStart(curPage, total);
+
+            // 필터링된 강좌 목록을 설정합니다.
+            filterLectureList = intersection;
+        } else if (excludeFull) {
+            // '수강 가능' 필터링을 선택한 경우
+
+            int total = lectureService.notFullLecture().size();
+            page.makeBlock(curPage, total);
+            page.makePostStart(curPage, total);
+            page.makeLastPageNum(total);
+
+            // 필터링된 강좌 목록을 설정합니다.
+            filterLectureList = lectureService.getNotFullLecture(page);
+        } else if (excludeFinished) {
+            // '마감임박' 필터링을 선택한 경우
+
+            int total = lectureService.unFinishedLecture().size();
+            page.makeBlock(curPage, total);
+            page.makePostStart(curPage, total);
+            page.makeLastPageNum(total);
+
+            // 필터링된 강좌 목록을 설정합니다.
+            filterLectureList = lectureService.getUnFinishedLecture(page);
+        } else {
+            // 어떤 필터도 선택하지 않은 경우
+
+            int total = lectureService.countLecture(page);
+            page.makeBlock(curPage, total);
+            page.makePostStart(curPage, total);
+            page.makeLastPageNum(total);
+
+            // 모든 강좌를 표시합니다.
+            filterLectureList = lectureService.getLectureList(page);
+        }
+
+        // 필터링 및 검색 결과를 모델에 추가합니다.
+        model.addAttribute("type", type);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("page", page);
+        model.addAttribute("curPage", curPage);
+        model.addAttribute("lectureList", filterLectureList);
+
+        // 각 강좌에 대해 마감 임박 여부를 계산하여 lectureMapping에 저장합니다.
+        Map<Integer, Boolean> lectureMapping = new HashMap<>();
+        for (Lecture lecture : filterLectureList) {
+            int lectureNumber = lecture.getLec_number();
+            int totalLectureNumber = lecture.getTot_number();
+            boolean isClosingSoon = lectureNumber >= totalLectureNumber * 0.9 && lectureNumber < totalLectureNumber;
+            lectureMapping.put(lecture.getLno(), isClosingSoon);
+        }
+        model.addAttribute("lectureMapping", lectureMapping);
+
+        // "/lecture/lectureList" 뷰로 이동하며, 필터링된 강좌 목록을 표시합니다.
+        return "/lecture/lectureList";
     }
 }

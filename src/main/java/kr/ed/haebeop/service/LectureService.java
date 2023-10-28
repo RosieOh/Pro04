@@ -10,6 +10,10 @@ import java.util.List;
 // 강의랑 수강신청이랑 같이 가야겠노
 public interface LectureService {
     public List<Lecture> getLectureList(Page page) throws Exception;
+    public List<Lecture> getUnFinishedLecture(Page page) throws Exception;
+    public List<Lecture> unFinishedLecture() throws Exception;
+    public List<Lecture> getNotFullLecture(Page page) throws Exception;
+    public List<Lecture> notFullLecture() throws Exception;
     public Lecture getLecture(int lno) throws Exception;
     public List<Lecture> lectureList() throws Exception;
     public List<Lecture> getNewLecture() throws Exception;
