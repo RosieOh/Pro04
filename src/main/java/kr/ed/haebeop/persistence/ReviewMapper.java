@@ -8,11 +8,11 @@ import java.util.List;
 
 @Mapper
 public interface ReviewMapper {
-    public List<Review> reviewList(Page page) throws Exception;
-    public Review reviewDetail(int rno) throws Exception;
-    public void reviewInsert(Review rno) throws Exception;
-    public void reviewDelete(int rno) throws Exception;
-    public void reviewEdit(Review domain) throws Exception;
-    public int totalCount(Page page) throws Exception;
+    public List<Review> reviewList(Page page);
+    public Review reviewDetail(int rno);
+    public void reviewInsert(Review rno);
+    public void reviewDelete(int rno);
+    public void reviewEdit(Review domain);
+    public int totalCount(Page page);
 
 }

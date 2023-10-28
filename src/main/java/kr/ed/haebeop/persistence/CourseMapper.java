@@ -1,6 +1,5 @@
 package kr.ed.haebeop.persistence;
 
-import kr.ed.haebeop.domain.Course;
 import kr.ed.haebeop.domain.Enroll;
 import kr.ed.haebeop.domain.Member;
 import kr.ed.haebeop.util.Page;

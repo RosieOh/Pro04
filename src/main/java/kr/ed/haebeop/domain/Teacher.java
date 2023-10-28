@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Teacher {
-    private String tid;
-    private String name;
+    private int tno;
+    private String tname;
     private String tel;
     private String email;
 }

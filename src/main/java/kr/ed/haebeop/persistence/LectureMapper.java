@@ -12,20 +12,23 @@ import java.util.List;
 public interface LectureMapper {
     public List<Lecture> getLectureList(Page page) throws Exception;
     public List<Lecture> lectureList() throws Exception;
+    public Lecture getLecture(int lno) throws Exception;
     public List<Lecture> getNewLecture() throws Exception;
     public void insertLecture(Lecture lecture) throws Exception;
     public void updateLecture(Lecture lecture) throws Exception;
-    public void deleteLecture(Lecture lecture) throws Exception;
-    public int countLecture(Lecture lecture) throws Exception;
+    public void deleteLecture(int lno) throws Exception;
+    public int countLecture(Page page) throws Exception;
+    public List<Lecture> getLectureAsc(Page page);
+    public List<Lecture> getLectureDesc(Page page);
 
-    // lecture
-    public int insertApply(Apply apply) throws Exception;
+
     public void updateStudentNumber(int lno) throws Exception;
     public List<Apply> getApplyList(Apply apply) throws Exception;
     public void endLecture(int ano) throws Exception;
     public Member getMemberName(String id) throws Exception;
-    public Apply isApply(Apply apply) throws Exception;
+    public Apply doApply(Apply apply);
     public List<Apply> applyList(Page page) throws Exception;
+    public int insertApply(Apply apply) throws Exception;
     public void deleteApply(int ano) throws Exception;
     public int countApply(Page page) throws Exception;
     public void updateMemberPoint(Member member) throws Exception;
@@ -33,4 +36,5 @@ public interface LectureMapper {
     public void cancelApply(int ano) throws Exception;
     public List<Apply> cancelApplyList(Page page) throws Exception;
     public int countCancelApplyList(Page page) throws Exception;
+
 }

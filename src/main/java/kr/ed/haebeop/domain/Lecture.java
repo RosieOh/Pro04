@@ -11,16 +11,17 @@ import lombok.ToString;
 @ToString
 public class Lecture {
     private int lno;
-    private String cname;
+    private String lname;
     private int price;
     private String sdate;       // start
     private String edate;       // end
-    private int tot_num;        // 전체 숫자
-    private int cur_num;
+    private int tot_number;        // 전체 숫자
+    private int lec_number;
     private String t_name;      // teacher
     private String content;
     private String bname;       // book name
     private int bprice;         // book price
     private String imgsrc1;
     private String imgsrc2;
+    private String imgsrc3;
 }

@@ -8,10 +8,9 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Apply {
     private int ano;
-    private int cno;
+    private int lno;
     private String id;
     private boolean complete;
     private boolean book;
@@ -21,5 +20,10 @@ public class Apply {
     private String sdate;
     private String edate;
     private String imgsrc1;
+    private String imgsrc2;
+    private String imgsrc3;
     private String name;
+    private String cancel;
+    private int pt;
+    private int apply_mn;
 }

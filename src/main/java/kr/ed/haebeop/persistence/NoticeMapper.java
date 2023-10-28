@@ -9,11 +9,11 @@ import java.util.List;
 
 @Mapper
 public interface NoticeMapper {
-    public List<Notice> noticeList(Page page) throws Exception;
-    public Notice noticeDetail(int nno) throws Exception;
-    public void noticeInsert(Notice domain) throws Exception;
-    public void noticeDelete(int nno) throws Exception;
-    public void noticeEdit(Notice domain) throws Exception;
-    public void visitedCount(int nno) throws Exception;
-    public int totalCount(Page page) throws Exception;
+    public List<Notice> noticeList(Page page);
+    public Notice noticeDetail(int nno);
+    public void noticeInsert(Notice domain);
+    public void noticeDelete(int nno);
+    public void noticeEdit(Notice domain);
+    public void visitedCount(int nno);
+    public int totalCount(Page page);
 }
